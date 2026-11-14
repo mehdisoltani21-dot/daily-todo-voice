@@ -253,7 +253,7 @@
 
     .task-actions {
       display: flex;
-      gap: 8px;
+      gap: 6px;
     }
 
     .task-actions button {
@@ -267,6 +267,11 @@
     }
 
     .task-actions button:hover {
+      background: #e0e7ff;
+      color: var(--primary);
+    }
+
+    .task-actions button.delete-btn:hover {
       background: #fee2e2;
       color: var(--danger);
     }
@@ -331,6 +336,61 @@
       text-align: center;
       padding: 20px;
       color: var(--muted);
+    }
+
+    .edit-form {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      width: 100%;
+    }
+
+    .edit-form input[type="text"] {
+      width: 100%;
+      padding: 10px 12px;
+      border: 2px solid var(--primary);
+      border-radius: 8px;
+      font-size: 1rem;
+      outline: none;
+    }
+
+    .edit-form .edit-actions {
+      display: flex;
+      gap: 8px;
+      justify-content: flex-end;
+    }
+
+    .edit-form .edit-actions button {
+      padding: 6px 14px;
+      border: none;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .edit-form .save-btn {
+      background: var(--success);
+      color: white;
+    }
+
+    .edit-form .cancel-btn {
+      background: #e2e8f0;
+      color: var(--text);
+    }
+
+    .edit-form .due-edit {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+
+    .edit-form .due-edit input {
+      padding: 6px 10px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
     }
 
     @media (max-width: 500px) {
@@ -402,12 +462,10 @@
     </div>
   </div>
 
-  <!-- Firebase SDK -->
   <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
 
   <script>
-    // ---------- Firebase Config ----------
     const firebaseConfig = {
       apiKey: "AIzaSyCV2XPdd4FLgHhP6Mhx3ucqg02gXuJ87Eo",
       authDomain: "my-to-do-list-b73c9.firebaseapp.com",
@@ -422,12 +480,11 @@
     const db = firebase.firestore();
     const tasksRef = db.collection('tasks');
 
-    // ---------- State ----------
     let tasks = [];
     let recognition = null;
     let isListening = false;
+    let editingId = null;
 
-    // ---------- Elements ----------
     const voiceBtn = document.getElementById('voiceBtn');
     const voiceBtnText = document.getElementById('voiceBtnText');
     const taskInput = document.getElementById('taskInput');
@@ -440,11 +497,9 @@
     const clearBtn = document.getElementById('clearBtn');
     const loadingEl = document.getElementById('loading');
 
-    // Set default due date to today
     const today = new Date().toISOString().split('T')[0];
     dueDateInput.value = today;
 
-    // ---------- Speech Recognition ----------
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
 
     if (SpeechRecognition) {
@@ -494,7 +549,6 @@
       setStatus('مرورگر شما از تشخیص صدا پشتیبانی نمی‌کند. از Chrome یا Edge استفاده کنید.', 'error');
     }
 
-    // ---------- Functions ----------
     function setStatus(msg, type = '') {
       statusEl.textContent = msg;
       statusEl.className = 'status ' + type;
@@ -503,23 +557,13 @@
     function formatDate(dateStr) {
       if (!dateStr) return '—';
       const d = new Date(dateStr + 'T00:00:00');
-      return d.toLocaleDateString('fa-IR', {
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric'
-      });
+      return d.toLocaleDateString('fa-IR', { year: 'numeric', month: 'long', day: 'numeric' });
     }
 
     function formatDateTime(iso) {
       if (!iso) return '—';
       const d = iso.toDate ? iso.toDate() : new Date(iso);
-      return d.toLocaleDateString('fa-IR', {
-        year: 'numeric',
-        month: 'short',
-        day: 'numeric',
-        hour: '2-digit',
-        minute: '2-digit'
-      });
+      return d.toLocaleDateString('fa-IR', { year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
     }
 
     function isOverdue(dueDate) {
@@ -543,9 +587,7 @@
       const active = tasks.filter(t => !t.done).length;
       const total = tasks.length;
 
-      taskCount.textContent = total === 0
-        ? '۰ کار'
-        : `${toPersianNum(active)} از ${toPersianNum(total)} باقی‌مانده`;
+      taskCount.textContent = total === 0 ? '۰ کار' : `${toPersianNum(active)} از ${toPersianNum(total)} باقی‌مانده`;
 
       emptyState.style.display = total === 0 ? 'block' : 'none';
       clearBtn.style.display = tasks.some(t => t.done) ? 'block' : 'none';
@@ -565,26 +607,47 @@
         li.className = 'task-item' + (task.done ? ' done' : '');
         li.dataset.id = task.id;
 
-        const overdueClass = !task.done && isOverdue(task.dueDate) ? ' overdue' : '';
-
-        li.innerHTML = `
-          <div class="task-top">
-            <input type="checkbox" ${task.done ? 'checked' : ''} data-action="toggle">
-            <span class="task-text">${escapeHtml(task.text)}</span>
-            <div class="task-actions">
-              <button data-action="delete" title="حذف">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <polyline points="3 6 5 6 21 6"/>
-                  <path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2"/>
-                </svg>
-              </button>
+        if (editingId === task.id) {
+          li.innerHTML = `
+            <div class="edit-form">
+              <input type="text" class="edit-text" value="${escapeHtml(task.text)}" />
+              <div class="due-edit">
+                <label>تاریخ انجام:</label>
+                <input type="date" class="edit-due" value="${task.dueDate || today}" />
+              </div>
+              <div class="edit-actions">
+                <button class="cancel-btn" data-action="cancel-edit">انصراف</button>
+                <button class="save-btn" data-action="save-edit">ذخیره</button>
+              </div>
             </div>
-          </div>
-          <div class="task-meta">
-            <span>📅 ثبت: ${formatDateTime(task.createdAt)}</span>
-            <span class="due-date${overdueClass}">⏰ انجام تا: ${formatDate(task.dueDate)}</span>
-          </div>
-        `;
+          `;
+        } else {
+          const overdueClass = !task.done && isOverdue(task.dueDate) ? ' overdue' : '';
+          li.innerHTML = `
+            <div class="task-top">
+              <input type="checkbox" ${task.done ? 'checked' : ''} data-action="toggle">
+              <span class="task-text">${escapeHtml(task.text)}</span>
+              <div class="task-actions">
+                <button data-action="edit" title="ویرایش">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/>
+                    <path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/>
+                  </svg>
+                </button>
+                <button class="delete-btn" data-action="delete" title="حذف">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="3 6 5 6 21 6"/>
+                    <path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2"/>
+                  </svg>
+                </button>
+              </div>
+            </div>
+            <div class="task-meta">
+              <span>📅 ثبت: ${formatDateTime(task.createdAt)}</span>
+              <span class="due-date${overdueClass}">⏰ انجام تا: ${formatDate(task.dueDate)}</span>
+            </div>
+          `;
+        }
 
         taskList.appendChild(li);
       });
@@ -642,6 +705,30 @@
       }
     }
 
+    async function saveEdit(id, li) {
+      const textInput = li.querySelector('.edit-text');
+      const dueInput = li.querySelector('.edit-due');
+      const newText = textInput.value.trim();
+      const newDue = dueInput.value || today;
+
+      if (!newText) {
+        setStatus('متن نمی‌تواند خالی باشد', 'error');
+        return;
+      }
+
+      try {
+        await tasksRef.doc(id).update({
+          text: newText,
+          dueDate: newDue
+        });
+        editingId = null;
+        setStatus('ویرایش ذخیره شد ✓', 'success');
+        setTimeout(() => setStatus(''), 1500);
+      } catch (err) {
+        setStatus('خطا در ذخیره ویرایش', 'error');
+      }
+    }
+
     async function clearDone() {
       try {
         const batch = db.batch();
@@ -656,7 +743,6 @@
       }
     }
 
-    // Real-time listener
     tasksRef.orderBy('createdAt', 'desc').onSnapshot((snapshot) => {
       tasks = snapshot.docs.map(doc => ({
         id: doc.id,
@@ -669,7 +755,6 @@
       setStatus('خطا در بارگذاری داده‌ها', 'error');
     });
 
-    // ---------- Events ----------
     voiceBtn.addEventListener('click', () => {
       if (!recognition) return;
       if (isListening) {
@@ -695,6 +780,29 @@
         toggleTask(id);
       } else if (action === 'delete') {
         deleteTask(id);
+      } else if (action === 'edit') {
+        editingId = id;
+        renderTasks();
+        setTimeout(() => {
+          const input = document.querySelector(`[data-id="${id}"] .edit-text`);
+          if (input) input.focus();
+        }, 50);
+      } else if (action === 'cancel-edit') {
+        editingId = null;
+        renderTasks();
+      } else if (action === 'save-edit') {
+        saveEdit(id, li);
+      }
+    });
+
+    taskList.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' && e.target.classList.contains('edit-text')) {
+        const li = e.target.closest('.task-item');
+        if (li) saveEdit(li.dataset.id, li);
+      }
+      if (e.key === 'Escape' && editingId) {
+        editingId = null;
+        renderTasks();
       }
     });
 
