@@ -16,88 +16,49 @@
       --muted: #64748b;
       --border: #e2e8f0;
     }
-
     * { box-sizing: border-box; margin: 0; padding: 0; }
-
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background: linear-gradient(135deg, #e0e7ff 0%, #f0f9ff 100%);
-      min-height: 100vh;
-      color: var(--text);
-      padding: 20px;
+      min-height: 100vh; color: var(--text); padding: 20px;
     }
-
     .container { max-width: 700px; margin: 0 auto; }
-
     header { text-align: center; margin-bottom: 24px; }
     header h1 { font-size: 1.8rem; color: var(--primary); margin-bottom: 6px; }
     header p { color: var(--muted); font-size: 0.95rem; }
-
     .card {
-      background: var(--card);
-      border-radius: 16px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-      padding: 24px;
-      margin-bottom: 20px;
+      background: var(--card); border-radius: 16px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08); padding: 24px; margin-bottom: 20px;
     }
-
     .tabs {
-      display: flex;
-      gap: 8px;
-      margin-bottom: 20px;
-      background: #eef2ff;
-      padding: 6px;
-      border-radius: 14px;
+      display: flex; gap: 8px; margin-bottom: 20px;
+      background: #eef2ff; padding: 6px; border-radius: 14px;
     }
-
     .tab {
-      flex: 1;
-      padding: 12px 8px;
-      border: none;
-      border-radius: 10px;
-      background: transparent;
-      font-size: 0.95rem;
-      font-weight: 600;
-      color: var(--muted);
-      cursor: pointer;
-      transition: all 0.2s;
+      flex: 1; padding: 12px 8px; border: none; border-radius: 10px;
+      background: transparent; font-size: 0.95rem; font-weight: 600;
+      color: var(--muted); cursor: pointer; transition: all 0.2s;
     }
-
     .tab:hover { background: #e0e7ff; color: var(--primary); }
     .tab.active {
-      background: white;
-      color: var(--primary);
+      background: white; color: var(--primary);
       box-shadow: 0 2px 8px rgba(79,70,229,0.15);
     }
-
     .tab .count {
-      display: inline-block;
-      background: #c7d2fe;
-      color: var(--primary);
-      font-size: 0.75rem;
-      padding: 2px 7px;
-      border-radius: 10px;
-      margin-right: 4px;
+      display: inline-block; background: #c7d2fe; color: var(--primary);
+      font-size: 0.75rem; padding: 2px 7px; border-radius: 10px; margin-right: 4px;
     }
-
-    .tab.active .count {
-      background: var(--primary);
-      color: white;
-    }
-
+    .tab.active .count { background: var(--primary); color: white; }
     .input-section { display: flex; flex-direction: column; gap: 12px; }
-
     .voice-btn {
       display: flex; align-items: center; justify-content: center; gap: 10px;
       background: var(--primary); color: white; border: none; border-radius: 12px;
-      padding: 16px 24px; font-size: 1.1rem; font-weight: 600; cursor: pointer;
-      transition: all 0.2s;
+      padding: 16px 24px; font-size: 1.1rem; font-weight: 600; cursor: pointer; transition: all 0.2s;
     }
     .voice-btn:hover { background: var(--primary-dark); transform: translateY(-1px); }
     .voice-btn.listening { background: var(--danger); animation: pulse 1.5s infinite; }
     @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.7; } }
     .voice-btn svg { width: 24px; height: 24px; }
-
     .manual-input { display: flex; gap: 10px; margin-top: 8px; }
     .manual-input input[type="text"] {
       flex: 1; padding: 12px 16px; border: 2px solid var(--border);
@@ -108,26 +69,18 @@
       background: var(--success); color: white; border: none; border-radius: 10px;
       padding: 0 20px; font-size: 1rem; font-weight: 600; cursor: pointer;
     }
-
     .due-date-row { display: flex; align-items: center; gap: 10px; margin-top: 8px; }
     .due-date-row label { font-size: 0.9rem; color: var(--muted); white-space: nowrap; }
     .due-date-row input[type="date"] {
       padding: 8px 12px; border: 2px solid var(--border); border-radius: 8px; font-size: 0.95rem; outline: none;
     }
-
     .status { text-align: center; font-size: 0.9rem; color: var(--muted); min-height: 24px; margin-top: 8px; }
     .status.error { color: var(--danger); }
     .status.success { color: var(--success); }
-
     .tasks-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
     .tasks-header h2 { font-size: 1.2rem; color: var(--text); }
-    .task-count {
-      background: var(--primary); color: white; font-size: 0.85rem;
-      padding: 4px 12px; border-radius: 20px;
-    }
-
+    .task-count { background: var(--primary); color: white; font-size: 0.85rem; padding: 4px 12px; border-radius: 20px; }
     .task-list { list-style: none; display: flex; flex-direction: column; gap: 12px; }
-
     .task-item {
       background: #f8fafc; border: 1px solid var(--border); border-radius: 12px;
       padding: 16px; display: flex; flex-direction: column; gap: 10px; transition: all 0.2s;
@@ -135,13 +88,9 @@
     .task-item:hover { border-color: #c7d2fe; box-shadow: 0 2px 8px rgba(79,70,229,0.1); }
     .task-item.done { opacity: 0.65; }
     .task-item.done .task-text { text-decoration: line-through; color: var(--muted); }
-
     .task-top { display: flex; align-items: flex-start; gap: 12px; }
-    .task-top input[type="checkbox"] {
-      width: 20px; height: 20px; margin-top: 2px; accent-color: var(--success); cursor: pointer;
-    }
+    .task-top input[type="checkbox"] { width: 20px; height: 20px; margin-top: 2px; accent-color: var(--success); cursor: pointer; }
     .task-text { flex: 1; font-size: 1.05rem; line-height: 1.5; word-break: break-word; }
-
     .task-actions { display: flex; gap: 6px; }
     .task-actions button {
       background: none; border: none; cursor: pointer; padding: 4px; border-radius: 6px;
@@ -149,50 +98,32 @@
     }
     .task-actions button:hover { background: #e0e7ff; color: var(--primary); }
     .task-actions button.delete-btn:hover { background: #fee2e2; color: var(--danger); }
-
-    .task-meta {
-      display: flex; flex-wrap: wrap; gap: 12px; font-size: 0.85rem;
-      color: var(--muted); padding-right: 32px;
-    }
+    .task-meta { display: flex; flex-wrap: wrap; gap: 12px; font-size: 0.85rem; color: var(--muted); padding-right: 32px; }
     .task-meta span { display: flex; align-items: center; gap: 4px; }
     .due-date { color: var(--primary); font-weight: 500; }
     .due-date.overdue { color: var(--danger); font-weight: 600; }
-
     .empty-state { text-align: center; padding: 40px 20px; color: var(--muted); }
     .empty-state svg { width: 64px; height: 64px; margin-bottom: 12px; opacity: 0.4; }
-
     .clear-btn {
       background: none; border: 1px solid var(--border); color: var(--muted);
-      padding: 8px 16px; border-radius: 8px; font-size: 0.9rem; cursor: pointer;
-      margin-top: 16px; width: 100%;
+      padding: 8px 16px; border-radius: 8px; font-size: 0.9rem; cursor: pointer; margin-top: 16px; width: 100%;
     }
     .clear-btn:hover { background: #fee2e2; border-color: #fecaca; color: var(--danger); }
-
     .loading { text-align: center; padding: 20px; color: var(--muted); }
-
     .edit-form { display: flex; flex-direction: column; gap: 10px; width: 100%; }
     .edit-form input[type="text"] {
-      width: 100%; padding: 10px 12px; border: 2px solid var(--primary);
-      border-radius: 8px; font-size: 1rem; outline: none;
+      width: 100%; padding: 10px 12px; border: 2px solid var(--primary); border-radius: 8px; font-size: 1rem; outline: none;
     }
     .edit-form .edit-actions { display: flex; gap: 8px; justify-content: flex-end; }
     .edit-form .edit-actions button {
-      padding: 6px 14px; border: none; border-radius: 8px;
-      font-size: 0.9rem; font-weight: 600; cursor: pointer;
+      padding: 6px 14px; border: none; border-radius: 8px; font-size: 0.9rem; font-weight: 600; cursor: pointer;
     }
     .edit-form .save-btn { background: var(--success); color: white; }
     .edit-form .cancel-btn { background: #e2e8f0; color: var(--text); }
-    .edit-form .due-edit {
-      display: flex; align-items: center; gap: 8px; font-size: 0.9rem; color: var(--muted);
-    }
-    .edit-form .due-edit input {
-      padding: 6px 10px; border: 1px solid var(--border); border-radius: 6px;
-    }
-
+    .edit-form .due-edit { display: flex; align-items: center; gap: 8px; font-size: 0.9rem; color: var(--muted); }
+    .edit-form .due-edit input { padding: 6px 10px; border: 1px solid var(--border); border-radius: 6px; }
     @media (max-width: 500px) {
-      body { padding: 12px; }
-      .card { padding: 16px; }
-      header h1 { font-size: 1.5rem; }
+      body { padding: 12px; } .card { padding: 16px; } header h1 { font-size: 1.5rem; }
       .tab { font-size: 0.85rem; padding: 10px 4px; }
     }
   </style>
@@ -201,19 +132,13 @@
   <div class="container">
     <header>
       <h1>📋 لیست کارهای روزانه</h1>
-      <p>کارهایت را با صدا بگو · همگام با فضای ابری</p>
+      <p>کارهایت را با صدا بگو · همگام با فضای ابری (Appwrite)</p>
     </header>
 
     <div class="tabs" id="tabs">
-      <button class="tab active" data-cat="personal">
-        شخصی <span class="count" id="count-personal">۰</span>
-      </button>
-      <button class="tab" data-cat="building">
-        ساختمان <span class="count" id="count-building">۰</span>
-      </button>
-      <button class="tab" data-cat="company">
-        شرکت <span class="count" id="count-company">۰</span>
-      </button>
+      <button class="tab active" data-cat="personal">شخصی <span class="count" id="count-personal">۰</span></button>
+      <button class="tab" data-cat="building">ساختمان <span class="count" id="count-building">۰</span></button>
+      <button class="tab" data-cat="company">شرکت <span class="count" id="count-company">۰</span></button>
     </div>
 
     <div class="card">
@@ -227,17 +152,14 @@
           </svg>
           <span id="voiceBtnText">ضبط صدا (بگو کارتو)</span>
         </button>
-
         <div class="manual-input">
           <input type="text" id="taskInput" placeholder="یا اینجا بنویس...">
           <button id="addBtn">افزودن</button>
         </div>
-
         <div class="due-date-row">
           <label for="dueDate">تاریخ انجام:</label>
           <input type="date" id="dueDate">
         </div>
-
         <div id="status" class="status"></div>
       </div>
     </div>
@@ -247,10 +169,8 @@
         <h2 id="sheetTitle">کارهای شخصی</h2>
         <span class="task-count" id="taskCount">۰ کار</span>
       </div>
-
       <div id="loading" class="loading">در حال بارگذاری از فضای ابری...</div>
       <ul class="task-list" id="taskList" style="display:none;"></ul>
-
       <div class="empty-state" id="emptyState" style="display:none;">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
           <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2"/>
@@ -260,33 +180,29 @@
         <p>هنوز کاری در این بخش ثبت نشده</p>
         <p style="font-size:0.85rem;margin-top:4px">با صدا یا نوشتن کار جدید اضافه کن</p>
       </div>
-
       <button class="clear-btn" id="clearBtn" style="display:none">پاک کردن کارهای انجام‌شده این بخش</button>
     </div>
   </div>
 
-  <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
-
+  <script src="https://cdn.jsdelivr.net/npm/appwrite@16.0.2"></script>
   <script>
-    const firebaseConfig = {
-      apiKey: "AIzaSyCV2XPdd4FLgHhP6Mhx3ucqg02gXuJ87Eo",
-      authDomain: "my-to-do-list-b73c9.firebaseapp.com",
-      projectId: "my-to-do-list-b73c9",
-      storageBucket: "my-to-do-list-b73c9.firebasestorage.app",
-      messagingSenderId: "760419200130",
-      appId: "1:760419200130:web:825ed7823efa8ab9d4d89b",
-      measurementId: "G-7PM55B37HP"
-    };
+    const ENDPOINT = 'https://fra.cloud.appwrite.io/v1';
+    const PROJECT_ID = '6af9708b001f463beb0c';
+    const DATABASE_ID = '6af97136002adb30739e';
+    const TABLE_ID = '6af97156001f09100a1c';
 
-    firebase.initializeApp(firebaseConfig);
-    const db = firebase.firestore();
-    const tasksRef = db.collection('tasks');
+    const { Client, TablesDB, ID, Query } = Appwrite;
+
+    const client = new Client()
+      .setEndpoint(ENDPOINT)
+      .setProject(PROJECT_ID);
+
+    const tablesDB = new TablesDB(client);
 
     const CATEGORIES = {
-      personal: { id: 'personal', title: 'کارهای شخصی', label: 'شخصی' },
-      building: { id: 'building', title: 'کارهای ساختمان', label: 'ساختمان' },
-      company:  { id: 'company',  title: 'کارهای شرکت', label: 'شرکت' }
+      personal: { id: 'personal', title: 'کارهای شخصی' },
+      building: { id: 'building', title: 'کارهای ساختمان' },
+      company:  { id: 'company',  title: 'کارهای شرکت' }
     };
 
     let tasks = [];
@@ -326,7 +242,6 @@
         voiceBtnText.textContent = 'در حال گوش دادن... صحبت کن';
         setStatus('گوش می‌دهم... کارتو بگو', '');
       };
-
       recognition.onresult = (event) => {
         const transcript = event.results[0][0].transcript.trim();
         if (transcript) {
@@ -335,16 +250,14 @@
           setTimeout(() => addTask(), 600);
         }
       };
-
       recognition.onerror = (event) => {
         isListening = false;
         voiceBtn.classList.remove('listening');
         voiceBtnText.textContent = 'ضبط صدا (بگو کارتو)';
-        if (event.error === 'no-speech') setStatus('صدایی شنیده نشد. دوباره امتحان کن.', 'error');
+        if (event.error === 'no-speech') setStatus('صدایی شنیده نشد.', 'error');
         else if (event.error === 'not-allowed') setStatus('دسترسی به میکروفون داده نشده.', 'error');
-        else setStatus('خطا در تشخیص صدا: ' + event.error, 'error');
+        else setStatus('خطا در تشخیص صدا', 'error');
       };
-
       recognition.onend = () => {
         isListening = false;
         voiceBtn.classList.remove('listening');
@@ -362,13 +275,12 @@
 
     function formatDate(dateStr) {
       if (!dateStr) return '—';
-      const d = new Date(dateStr + 'T00:00:00');
-      return d.toLocaleDateString('fa-IR', { year: 'numeric', month: 'long', day: 'numeric' });
+      return new Date(dateStr + 'T00:00:00').toLocaleDateString('fa-IR', { year: 'numeric', month: 'long', day: 'numeric' });
     }
 
     function formatDateTime(iso) {
       if (!iso) return '—';
-      const d = iso.toDate ? iso.toDate() : new Date(iso);
+      const d = new Date(iso);
       return d.toLocaleDateString('fa-IR', { year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
     }
 
@@ -394,6 +306,12 @@
       });
     }
 
+    function escapeHtml(text) {
+      const div = document.createElement('div');
+      div.textContent = text;
+      return div.innerHTML;
+    }
+
     function renderTasks() {
       loadingEl.style.display = 'none';
       taskList.style.display = 'flex';
@@ -406,10 +324,8 @@
 
       taskCount.textContent = total === 0 ? '۰ کار' : `${toPersianNum(active)} از ${toPersianNum(total)} باقی‌مانده`;
       sheetTitle.textContent = CATEGORIES[currentCategory].title;
-
       emptyState.style.display = total === 0 ? 'block' : 'none';
       clearBtn.style.display = filtered.some(t => t.done) ? 'block' : 'none';
-
       updateTabCounts();
 
       const sorted = [...filtered].sort((a, b) => {
@@ -417,17 +333,15 @@
         if (a.dueDate && b.dueDate) return a.dueDate.localeCompare(b.dueDate);
         if (a.dueDate) return -1;
         if (b.dueDate) return 1;
-        const aTime = a.createdAt?.toDate ? a.createdAt.toDate() : new Date(a.createdAt || 0);
-        const bTime = b.createdAt?.toDate ? b.createdAt.toDate() : new Date(b.createdAt || 0);
-        return bTime - aTime;
+        return new Date(b.createdAt || 0) - new Date(a.createdAt || 0);
       });
 
       sorted.forEach(task => {
         const li = document.createElement('li');
         li.className = 'task-item' + (task.done ? ' done' : '');
-        li.dataset.id = task.id;
+        li.dataset.id = task.$id || task.id;
 
-        if (editingId === task.id) {
+        if (editingId === (task.$id || task.id)) {
           li.innerHTML = `
             <div class="edit-form">
               <input type="text" class="edit-text" value="${escapeHtml(task.text)}" />
@@ -439,8 +353,7 @@
                 <button class="cancel-btn" data-action="cancel-edit">انصراف</button>
                 <button class="save-btn" data-action="save-edit">ذخیره</button>
               </div>
-            </div>
-          `;
+            </div>`;
         } else {
           const overdueClass = !task.done && isOverdue(task.dueDate) ? ' overdue' : '';
           li.innerHTML = `
@@ -465,17 +378,36 @@
             <div class="task-meta">
               <span>📅 ثبت: ${formatDateTime(task.createdAt)}</span>
               <span class="due-date${overdueClass}">⏰ انجام تا: ${formatDate(task.dueDate)}</span>
-            </div>
-          `;
+            </div>`;
         }
         taskList.appendChild(li);
       });
     }
 
-    function escapeHtml(text) {
-      const div = document.createElement('div');
-      div.textContent = text;
-      return div.innerHTML;
+    async function loadTasks() {
+      try {
+        const res = await tablesDB.listRows({
+          databaseId: DATABASE_ID,
+          tableId: TABLE_ID,
+          queries: [Query.orderDesc('createdAt'), Query.limit(500)]
+        });
+        tasks = res.rows || res.documents || [];
+        renderTasks();
+      } catch (err) {
+        console.error(err);
+        try {
+          const res = await tablesDB.listRows({
+            databaseId: DATABASE_ID,
+            tableId: TABLE_ID,
+            queries: [Query.limit(500)]
+          });
+          tasks = res.rows || res.documents || [];
+          renderTasks();
+        } catch (e2) {
+          loadingEl.textContent = 'خطا در اتصال. Permissions یا ستون‌ها را چک کن.';
+          setStatus('خطا در بارگذاری: ' + (e2.message || e2), 'error');
+        }
+      }
     }
 
     async function addTask() {
@@ -484,36 +416,58 @@
 
       try {
         setStatus('در حال ذخیره...', '');
-        await tasksRef.add({
-          text,
-          done: false,
-          category: currentCategory,
-          createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-          dueDate: dueDateInput.value || today
+        await tablesDB.createRow({
+          databaseId: DATABASE_ID,
+          tableId: TABLE_ID,
+          rowId: ID.unique(),
+          data: {
+            text,
+            done: false,
+            category: currentCategory,
+            dueDate: dueDateInput.value || today,
+            createdAt: new Date().toISOString()
+          }
         });
         taskInput.value = '';
         dueDateInput.value = today;
         setStatus('کار اضافه شد ✓', 'success');
         setTimeout(() => setStatus(''), 2000);
+        await loadTasks();
       } catch (err) {
         console.error(err);
-        setStatus('خطا در ذخیره: ' + err.message, 'error');
+        setStatus('خطا در ذخیره: ' + (err.message || err), 'error');
       }
     }
 
     async function toggleTask(id) {
-      const task = tasks.find(t => t.id === id);
+      const task = tasks.find(t => (t.$id || t.id) === id);
       if (!task) return;
-      try { await tasksRef.doc(id).update({ done: !task.done }); }
-      catch (err) { setStatus('خطا در به‌روزرسانی', 'error'); }
+      try {
+        await tablesDB.updateRow({
+          databaseId: DATABASE_ID,
+          tableId: TABLE_ID,
+          rowId: id,
+          data: { done: !task.done }
+        });
+        await loadTasks();
+      } catch (err) {
+        setStatus('خطا در به‌روزرسانی', 'error');
+      }
     }
 
     async function deleteTask(id) {
       try {
-        await tasksRef.doc(id).delete();
+        await tablesDB.deleteRow({
+          databaseId: DATABASE_ID,
+          tableId: TABLE_ID,
+          rowId: id
+        });
         setStatus('کار حذف شد', 'success');
         setTimeout(() => setStatus(''), 1500);
-      } catch (err) { setStatus('خطا در حذف', 'error'); }
+        await loadTasks();
+      } catch (err) {
+        setStatus('خطا در حذف', 'error');
+      }
     }
 
     async function saveEdit(id, li) {
@@ -524,37 +478,43 @@
       if (!newText) { setStatus('متن نمی‌تواند خالی باشد', 'error'); return; }
 
       try {
-        await tasksRef.doc(id).update({ text: newText, dueDate: newDue });
+        await tablesDB.updateRow({
+          databaseId: DATABASE_ID,
+          tableId: TABLE_ID,
+          rowId: id,
+          data: { text: newText, dueDate: newDue }
+        });
         editingId = null;
         setStatus('ویرایش ذخیره شد ✓', 'success');
         setTimeout(() => setStatus(''), 1500);
-      } catch (err) { setStatus('خطا در ذخیره ویرایش', 'error'); }
+        await loadTasks();
+      } catch (err) {
+        setStatus('خطا در ذخیره ویرایش', 'error');
+      }
     }
 
     async function clearDone() {
       try {
-        const batch = db.batch();
-        getFilteredTasks().filter(t => t.done).forEach(t => batch.delete(tasksRef.doc(t.id)));
-        await batch.commit();
+        const toDelete = getFilteredTasks().filter(t => t.done);
+        for (const t of toDelete) {
+          await tablesDB.deleteRow({
+            databaseId: DATABASE_ID,
+            tableId: TABLE_ID,
+            rowId: t.$id || t.id
+          });
+        }
         setStatus('کارهای انجام‌شده این بخش پاک شدند', 'success');
         setTimeout(() => setStatus(''), 1500);
-      } catch (err) { setStatus('خطا در پاک‌سازی', 'error'); }
+        await loadTasks();
+      } catch (err) {
+        setStatus('خطا در پاک‌سازی', 'error');
+      }
     }
-
-    tasksRef.orderBy('createdAt', 'desc').onSnapshot((snapshot) => {
-      tasks = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-      renderTasks();
-    }, (error) => {
-      console.error(error);
-      loadingEl.textContent = 'خطا در اتصال به فضای ابری';
-      setStatus('خطا در بارگذاری داده‌ها', 'error');
-    });
 
     voiceBtn.addEventListener('click', () => {
       if (!recognition) return;
       isListening ? recognition.stop() : recognition.start();
     });
-
     addBtn.addEventListener('click', addTask);
     taskInput.addEventListener('keydown', e => { if (e.key === 'Enter') addTask(); });
 
@@ -597,6 +557,8 @@
     });
 
     clearBtn.addEventListener('click', clearDone);
+
+    loadTasks();
   </script>
 </body>
 </html>
