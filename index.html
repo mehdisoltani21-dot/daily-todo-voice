@@ -4,128 +4,281 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>لیست کارهای روزانه صوتی</title>
+  <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet">
   <style>
     :root {
-      --primary: #4f46e5; --primary-dark: #4338ca; --success: #10b981; --danger: #ef4444;
-      --bg: #f8fafc; --card: #ffffff; --text: #1e293b; --muted: #64748b; --border: #e2e8f0;
+      --primary: #1E88E5;
+      --primary-dark: #1565C0;
+      --primary-light: #64B5F6;
+      --accent: #FF8F00;
+      --success: #43A047;
+      --danger: #E53935;
+      --bg: #E3F2FD;
+      --bg2: #BBDEFB;
+      --card: #FFFFFF;
+      --text: #0D47A1;
+      --text2: #1565C0;
+      --muted: #5472A3;
+      --border: #90CAF9;
+      --shadow: rgba(30, 136, 229, 0.18);
+      --input-bg: #F5FAFF;
     }
+
+    [data-theme="dark"] {
+      --primary: #42A5F5;
+      --primary-dark: #1E88E5;
+      --primary-light: #90CAF9;
+      --accent: #FFB300;
+      --success: #66BB6A;
+      --danger: #EF5350;
+      --bg: #0A1929;
+      --bg2: #102A43;
+      --card: #132F4C;
+      --text: #E3F2FD;
+      --text2: #90CAF9;
+      --muted: #7EA6D0;
+      --border: #1E4976;
+      --shadow: rgba(0, 0, 0, 0.4);
+      --input-bg: #0D2137;
+    }
+
     * { box-sizing: border-box; margin: 0; padding: 0; }
+
     body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(135deg, #e0e7ff 0%, #f0f9ff 100%);
-      min-height: 100vh; color: var(--text); padding: 20px;
+      font-family: Vazirmatn, Tahoma, sans-serif;
+      background: linear-gradient(160deg, var(--bg) 0%, var(--bg2) 100%);
+      min-height: 100vh;
+      color: var(--text);
+      padding: 16px;
+      transition: background 0.3s, color 0.3s;
     }
-    .container { max-width: 700px; margin: 0 auto; }
-    header { text-align: center; margin-bottom: 24px; }
-    header h1 { font-size: 1.8rem; color: var(--primary); margin-bottom: 6px; }
-    header p { color: var(--muted); font-size: 0.95rem; }
-    .card {
-      background: var(--card); border-radius: 16px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.08); padding: 24px; margin-bottom: 20px;
+
+    .container { max-width: 720px; margin: 0 auto; }
+
+    #loginScreen {
+      display: flex; align-items: center; justify-content: center;
+      min-height: 90vh;
     }
+    .login-card {
+      background: var(--card);
+      border-radius: 24px;
+      padding: 40px 32px;
+      width: 100%; max-width: 380px;
+      box-shadow: 0 12px 40px var(--shadow);
+      text-align: center;
+    }
+    .login-card h1 {
+      font-size: 1.5rem; color: var(--primary); margin-bottom: 8px;
+    }
+    .login-card p { color: var(--muted); font-size: 0.9rem; margin-bottom: 28px; }
+    .login-card input {
+      width: 100%; padding: 14px 16px;
+      border: 2px solid var(--border); border-radius: 12px;
+      font-family: Vazirmatn, sans-serif; font-size: 1rem;
+      background: var(--input-bg); color: var(--text); outline: none;
+      margin-bottom: 16px; transition: border-color 0.2s;
+    }
+    .login-card input:focus { border-color: var(--primary); }
+    .login-card button {
+      width: 100%; padding: 14px;
+      background: var(--primary); color: white; border: none;
+      border-radius: 12px; font-family: Vazirmatn, sans-serif;
+      font-size: 1.05rem; font-weight: 600; cursor: pointer;
+      transition: background 0.2s;
+    }
+    .login-card button:hover { background: var(--primary-dark); }
+    .login-error { color: var(--danger); font-size: 0.9rem; margin-top: 12px; min-height: 20px; }
+
+    header {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 20px; flex-wrap: wrap; gap: 12px;
+    }
+    .header-title h1 {
+      font-size: 1.55rem; color: var(--primary); margin-bottom: 2px;
+    }
+    .header-title p { color: var(--muted); font-size: 0.85rem; }
+    .header-actions { display: flex; gap: 10px; align-items: center; }
+
+    .theme-btn, .logout-btn {
+      background: var(--card); border: 2px solid var(--border);
+      border-radius: 12px; padding: 10px 14px; cursor: pointer;
+      font-size: 1.1rem; color: var(--text); transition: all 0.2s;
+      font-family: Vazirmatn, sans-serif;
+    }
+    .theme-btn:hover, .logout-btn:hover {
+      border-color: var(--primary); background: var(--primary); color: white;
+    }
+
     .tabs {
-      display: flex; gap: 8px; margin-bottom: 20px;
-      background: #eef2ff; padding: 6px; border-radius: 14px;
+      display: flex; gap: 8px; margin-bottom: 18px;
+      background: var(--card); padding: 6px; border-radius: 16px;
+      box-shadow: 0 4px 16px var(--shadow);
     }
     .tab {
-      flex: 1; padding: 12px 8px; border: none; border-radius: 10px;
-      background: transparent; font-size: 0.95rem; font-weight: 600;
-      color: var(--muted); cursor: pointer; transition: all 0.2s;
+      flex: 1; padding: 12px 6px; border: none; border-radius: 12px;
+      background: transparent; font-family: Vazirmatn, sans-serif;
+      font-size: 0.92rem; font-weight: 600; color: var(--muted);
+      cursor: pointer; transition: all 0.2s;
     }
-    .tab:hover { background: #e0e7ff; color: var(--primary); }
+    .tab:hover { background: var(--bg); color: var(--primary); }
     .tab.active {
-      background: white; color: var(--primary);
-      box-shadow: 0 2px 8px rgba(79,70,229,0.15);
+      background: var(--primary); color: white;
+      box-shadow: 0 4px 12px rgba(30,136,229,0.35);
     }
     .tab .count {
-      display: inline-block; background: #c7d2fe; color: var(--primary);
-      font-size: 0.75rem; padding: 2px 7px; border-radius: 10px; margin-right: 4px;
+      display: inline-block; background: rgba(255,255,255,0.25);
+      font-size: 0.72rem; padding: 1px 7px; border-radius: 10px; margin-right: 3px;
     }
-    .tab.active .count { background: var(--primary); color: white; }
-    .input-section { display: flex; flex-direction: column; gap: 12px; }
+    .tab:not(.active) .count {
+      background: var(--bg2); color: var(--primary);
+    }
+
+    .card {
+      background: var(--card); border-radius: 20px;
+      box-shadow: 0 6px 24px var(--shadow);
+      padding: 22px; margin-bottom: 18px;
+      transition: background 0.3s;
+    }
+
     .voice-btn {
       display: flex; align-items: center; justify-content: center; gap: 10px;
-      background: var(--primary); color: white; border: none; border-radius: 12px;
-      padding: 16px 24px; font-size: 1.1rem; font-weight: 600; cursor: pointer; transition: all 0.2s;
+      width: 100%; background: var(--primary); color: white; border: none;
+      border-radius: 14px; padding: 16px; font-size: 1.05rem; font-weight: 600;
+      font-family: Vazirmatn, sans-serif; cursor: pointer; transition: all 0.2s;
     }
     .voice-btn:hover { background: var(--primary-dark); transform: translateY(-1px); }
-    .voice-btn.listening { background: var(--danger); animation: pulse 1.5s infinite; }
-    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.7; } }
-    .voice-btn svg { width: 24px; height: 24px; }
-    .manual-input { display: flex; gap: 10px; margin-top: 8px; }
+    .voice-btn.listening { background: var(--danger); animation: pulse 1.4s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.7} }
+    .voice-btn svg { width: 22px; height: 22px; }
+
+    .manual-input { display: flex; gap: 10px; margin-top: 12px; }
     .manual-input input[type="text"] {
-      flex: 1; padding: 12px 16px; border: 2px solid var(--border);
-      border-radius: 10px; font-size: 1rem; outline: none;
+      flex: 1; padding: 12px 14px; border: 2px solid var(--border);
+      border-radius: 12px; font-size: 1rem; font-family: Vazirmatn, sans-serif;
+      background: var(--input-bg); color: var(--text); outline: none;
     }
-    .manual-input input[type="text"]:focus { border-color: var(--primary); }
+    .manual-input input:focus { border-color: var(--primary); }
     .manual-input button {
-      background: var(--success); color: white; border: none; border-radius: 10px;
-      padding: 0 20px; font-size: 1rem; font-weight: 600; cursor: pointer;
+      background: var(--success); color: white; border: none; border-radius: 12px;
+      padding: 0 20px; font-size: 0.95rem; font-weight: 600;
+      font-family: Vazirmatn, sans-serif; cursor: pointer;
     }
-    .due-date-row { display: flex; align-items: center; gap: 10px; margin-top: 8px; }
+
+    .due-date-row {
+      display: flex; align-items: center; gap: 10px; margin-top: 12px;
+    }
     .due-date-row label { font-size: 0.9rem; color: var(--muted); white-space: nowrap; }
     .due-date-row input[type="date"] {
-      padding: 8px 12px; border: 2px solid var(--border); border-radius: 8px; font-size: 0.95rem; outline: none;
+      padding: 8px 12px; border: 2px solid var(--border); border-radius: 10px;
+      font-family: Vazirmatn, sans-serif; background: var(--input-bg); color: var(--text); outline: none;
     }
-    .status { text-align: center; font-size: 0.9rem; color: var(--muted); min-height: 24px; margin-top: 8px; }
+
+    .status { text-align: center; font-size: 0.88rem; color: var(--muted); min-height: 22px; margin-top: 10px; }
     .status.error { color: var(--danger); }
     .status.success { color: var(--success); }
-    .tasks-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
-    .tasks-header h2 { font-size: 1.2rem; color: var(--text); }
-    .task-count { background: var(--primary); color: white; font-size: 0.85rem; padding: 4px 12px; border-radius: 20px; }
-    .task-list { list-style: none; display: flex; flex-direction: column; gap: 12px; }
-    .task-item {
-      background: #f8fafc; border: 1px solid var(--border); border-radius: 12px;
-      padding: 16px; display: flex; flex-direction: column; gap: 10px; transition: all 0.2s;
+
+    .tasks-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
+    .tasks-header h2 { font-size: 1.15rem; color: var(--text); }
+    .task-count {
+      background: var(--primary); color: white; font-size: 0.82rem;
+      padding: 4px 12px; border-radius: 20px;
     }
-    .task-item:hover { border-color: #c7d2fe; box-shadow: 0 2px 8px rgba(79,70,229,0.1); }
-    .task-item.done { opacity: 0.65; }
+
+    .task-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .task-item {
+      background: var(--input-bg); border: 1px solid var(--border); border-radius: 14px;
+      padding: 14px; display: flex; flex-direction: column; gap: 8px; transition: all 0.2s;
+    }
+    .task-item:hover { border-color: var(--primary-light); box-shadow: 0 2px 10px var(--shadow); }
+    .task-item.done { opacity: 0.55; }
     .task-item.done .task-text { text-decoration: line-through; color: var(--muted); }
-    .task-top { display: flex; align-items: flex-start; gap: 12px; }
-    .task-top input[type="checkbox"] { width: 20px; height: 20px; margin-top: 2px; accent-color: var(--success); cursor: pointer; }
-    .task-text { flex: 1; font-size: 1.05rem; line-height: 1.5; word-break: break-word; }
-    .task-actions { display: flex; gap: 6px; }
+
+    .task-top { display: flex; align-items: flex-start; gap: 10px; }
+    .task-top input[type="checkbox"] {
+      width: 20px; height: 20px; margin-top: 2px; accent-color: var(--success); cursor: pointer;
+    }
+    .task-text { flex: 1; font-size: 1rem; line-height: 1.5; word-break: break-word; }
+
+    .task-actions { display: flex; gap: 4px; }
     .task-actions button {
-      background: none; border: none; cursor: pointer; padding: 4px; border-radius: 6px;
+      background: none; border: none; cursor: pointer; padding: 5px; border-radius: 8px;
       color: var(--muted); transition: all 0.15s;
     }
-    .task-actions button:hover { background: #e0e7ff; color: var(--primary); }
-    .task-actions button.delete-btn:hover { background: #fee2e2; color: var(--danger); }
-    .task-meta { display: flex; flex-wrap: wrap; gap: 12px; font-size: 0.85rem; color: var(--muted); padding-right: 32px; }
-    .task-meta span { display: flex; align-items: center; gap: 4px; }
+    .task-actions button:hover { background: var(--bg); color: var(--primary); }
+    .task-actions button.delete-btn:hover { background: #FFEBEE; color: var(--danger); }
+
+    .task-meta {
+      display: flex; flex-wrap: wrap; gap: 10px; font-size: 0.8rem;
+      color: var(--muted); padding-right: 30px;
+    }
     .due-date { color: var(--primary); font-weight: 500; }
     .due-date.overdue { color: var(--danger); font-weight: 600; }
-    .empty-state { text-align: center; padding: 40px 20px; color: var(--muted); }
-    .empty-state svg { width: 64px; height: 64px; margin-bottom: 12px; opacity: 0.4; }
+
+    .empty-state { text-align: center; padding: 36px 16px; color: var(--muted); }
+    .empty-state svg { width: 56px; height: 56px; margin-bottom: 10px; opacity: 0.35; }
+
     .clear-btn {
       background: none; border: 1px solid var(--border); color: var(--muted);
-      padding: 8px 16px; border-radius: 8px; font-size: 0.9rem; cursor: pointer; margin-top: 16px; width: 100%;
+      padding: 10px; border-radius: 10px; font-size: 0.88rem; cursor: pointer;
+      margin-top: 14px; width: 100%; font-family: Vazirmatn, sans-serif;
     }
-    .clear-btn:hover { background: #fee2e2; border-color: #fecaca; color: var(--danger); }
+    .clear-btn:hover { background: #FFEBEE; border-color: #EF9A9A; color: var(--danger); }
+
     .loading { text-align: center; padding: 20px; color: var(--muted); }
+
     .edit-form { display: flex; flex-direction: column; gap: 10px; width: 100%; }
     .edit-form input[type="text"] {
-      width: 100%; padding: 10px 12px; border: 2px solid var(--primary); border-radius: 8px; font-size: 1rem; outline: none;
+      width: 100%; padding: 10px 12px; border: 2px solid var(--primary);
+      border-radius: 10px; font-size: 1rem; font-family: Vazirmatn, sans-serif;
+      background: var(--input-bg); color: var(--text); outline: none;
     }
     .edit-form .edit-actions { display: flex; gap: 8px; justify-content: flex-end; }
     .edit-form .edit-actions button {
-      padding: 6px 14px; border: none; border-radius: 8px; font-size: 0.9rem; font-weight: 600; cursor: pointer;
+      padding: 7px 16px; border: none; border-radius: 10px;
+      font-size: 0.9rem; font-weight: 600; cursor: pointer; font-family: Vazirmatn, sans-serif;
     }
     .edit-form .save-btn { background: var(--success); color: white; }
-    .edit-form .cancel-btn { background: #e2e8f0; color: var(--text); }
-    .edit-form .due-edit { display: flex; align-items: center; gap: 8px; font-size: 0.9rem; color: var(--muted); }
-    .edit-form .due-edit input { padding: 6px 10px; border: 1px solid var(--border); border-radius: 6px; }
+    .edit-form .cancel-btn { background: var(--border); color: var(--text); }
+    .edit-form .due-edit {
+      display: flex; align-items: center; gap: 8px; font-size: 0.88rem; color: var(--muted);
+    }
+    .edit-form .due-edit input {
+      padding: 6px 10px; border: 1px solid var(--border); border-radius: 8px;
+      font-family: Vazirmatn, sans-serif; background: var(--input-bg); color: var(--text);
+    }
+
+    #app { display: none; }
+
     @media (max-width: 500px) {
-      body { padding: 12px; } .card { padding: 16px; } header h1 { font-size: 1.5rem; }
-      .tab { font-size: 0.85rem; padding: 10px 4px; }
+      body { padding: 10px; }
+      .card { padding: 16px; }
+      header h1 { font-size: 1.3rem; }
+      .tab { font-size: 0.82rem; padding: 10px 4px; }
+      .login-card { padding: 28px 20px; }
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <header>
+  <div id="loginScreen">
+    <div class="login-card">
       <h1>📋 لیست کارهای روزانه</h1>
-      <p>کارهایت را با صدا بگو · همگام با فضای ابری (Appwrite)</p>
+      <p>برای ورود رمز عبور را وارد کنید</p>
+      <input type="password" id="passInput" placeholder="رمز عبور" autocomplete="current-password">
+      <button id="loginBtn">ورود</button>
+      <div class="login-error" id="loginError"></div>
+    </div>
+  </div>
+
+  <div id="app" class="container">
+    <header>
+      <div class="header-title">
+        <h1>📋 لیست کارهای روزانه</h1>
+        <p>با صدا بگو · همگام با فضای ابری</p>
+      </div>
+      <div class="header-actions">
+        <button class="theme-btn" id="themeBtn" title="تغییر تم">🌙</button>
+        <button class="logout-btn" id="logoutBtn" title="خروج">خروج</button>
+      </div>
     </header>
 
     <div class="tabs" id="tabs">
@@ -135,26 +288,24 @@
     </div>
 
     <div class="card">
-      <div class="input-section">
-        <button id="voiceBtn" class="voice-btn">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/>
-            <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
-            <line x1="12" y1="19" x2="12" y2="23"/>
-            <line x1="8" y1="23" x2="16" y2="23"/>
-          </svg>
-          <span id="voiceBtnText">ضبط صدا (بگو کارتو)</span>
-        </button>
-        <div class="manual-input">
-          <input type="text" id="taskInput" placeholder="یا اینجا بنویس...">
-          <button id="addBtn">افزودن</button>
-        </div>
-        <div class="due-date-row">
-          <label for="dueDate">تاریخ انجام:</label>
-          <input type="date" id="dueDate">
-        </div>
-        <div id="status" class="status"></div>
+      <button id="voiceBtn" class="voice-btn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/>
+          <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
+          <line x1="12" y1="19" x2="12" y2="23"/>
+          <line x1="8" y1="23" x2="16" y2="23"/>
+        </svg>
+        <span id="voiceBtnText">ضبط صدا (بگو کارتو)</span>
+      </button>
+      <div class="manual-input">
+        <input type="text" id="taskInput" placeholder="یا اینجا بنویس...">
+        <button id="addBtn">افزودن</button>
       </div>
+      <div class="due-date-row">
+        <label for="dueDate">تاریخ انجام:</label>
+        <input type="date" id="dueDate">
+      </div>
+      <div id="status" class="status"></div>
     </div>
 
     <div class="card">
@@ -162,7 +313,7 @@
         <h2 id="sheetTitle">کارهای شخصی</h2>
         <span class="task-count" id="taskCount">۰ کار</span>
       </div>
-      <div id="loading" class="loading">در حال بارگذاری از فضای ابری...</div>
+      <div id="loading" class="loading">در حال بارگذاری...</div>
       <ul class="task-list" id="taskList" style="display:none;"></ul>
       <div class="empty-state" id="emptyState" style="display:none;">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
@@ -171,31 +322,27 @@
           <path d="M9 12h6M9 16h6"/>
         </svg>
         <p>هنوز کاری در این بخش ثبت نشده</p>
-        <p style="font-size:0.85rem;margin-top:4px">با صدا یا نوشتن کار جدید اضافه کن</p>
       </div>
       <button class="clear-btn" id="clearBtn" style="display:none">پاک کردن کارهای انجام‌شده این بخش</button>
     </div>
   </div>
 
   <script>
+    const PASSWORD = '1234';
     const ENDPOINT = 'https://fra.cloud.appwrite.io/v1';
     const PROJECT_ID = '6af9708b001f463beb0c';
     const DATABASE_ID = '6af97136002adb30739e';
     const TABLE_ID = '6af97156001f09100a1c';
-
     const BASE = `${ENDPOINT}/tablesdb/${DATABASE_ID}/tables/${TABLE_ID}/rows`;
 
     function headers() {
-      return {
-        'Content-Type': 'application/json',
-        'X-Appwrite-Project': PROJECT_ID
-      };
+      return { 'Content-Type': 'application/json', 'X-Appwrite-Project': PROJECT_ID };
     }
 
     const CATEGORIES = {
-      personal: { id: 'personal', title: 'کارهای شخصی' },
-      building: { id: 'building', title: 'کارهای ساختمان' },
-      company:  { id: 'company',  title: 'کارهای شرکت' }
+      personal: { title: 'کارهای شخصی' },
+      building: { title: 'کارهای ساختمان' },
+      company:  { title: 'کارهای شرکت' }
     };
 
     let tasks = [];
@@ -204,6 +351,13 @@
     let isListening = false;
     let editingId = null;
 
+    const loginScreen = document.getElementById('loginScreen');
+    const appEl = document.getElementById('app');
+    const passInput = document.getElementById('passInput');
+    const loginBtn = document.getElementById('loginBtn');
+    const loginError = document.getElementById('loginError');
+    const themeBtn = document.getElementById('themeBtn');
+    const logoutBtn = document.getElementById('logoutBtn');
     const voiceBtn = document.getElementById('voiceBtn');
     const voiceBtnText = document.getElementById('voiceBtnText');
     const taskInput = document.getElementById('taskInput');
@@ -221,6 +375,50 @@
     const today = new Date().toISOString().split('T')[0];
     dueDateInput.value = today;
 
+    function checkAuth() {
+      if (sessionStorage.getItem('todo_auth') === '1') {
+        loginScreen.style.display = 'none';
+        appEl.style.display = 'block';
+        loadTasks();
+      }
+    }
+
+    loginBtn.addEventListener('click', doLogin);
+    passInput.addEventListener('keydown', e => { if (e.key === 'Enter') doLogin(); });
+
+    function doLogin() {
+      if (passInput.value === PASSWORD) {
+        sessionStorage.setItem('todo_auth', '1');
+        loginError.textContent = '';
+        loginScreen.style.display = 'none';
+        appEl.style.display = 'block';
+        loadTasks();
+      } else {
+        loginError.textContent = 'رمز عبور اشتباه است';
+        passInput.value = '';
+        passInput.focus();
+      }
+    }
+
+    logoutBtn.addEventListener('click', () => {
+      sessionStorage.removeItem('todo_auth');
+      location.reload();
+    });
+
+    function applyTheme(theme) {
+      document.documentElement.setAttribute('data-theme', theme);
+      themeBtn.textContent = theme === 'dark' ? '☀️' : '🌙';
+      localStorage.setItem('todo_theme', theme);
+    }
+
+    const savedTheme = localStorage.getItem('todo_theme') || 'light';
+    applyTheme(savedTheme);
+
+    themeBtn.addEventListener('click', () => {
+      const next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      applyTheme(next);
+    });
+
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
     if (SpeechRecognition) {
       recognition = new SpeechRecognition();
@@ -232,15 +430,15 @@
       recognition.onstart = () => {
         isListening = true;
         voiceBtn.classList.add('listening');
-        voiceBtnText.textContent = 'در حال گوش دادن... صحبت کن';
-        setStatus('گوش می‌دهم... کارتو بگو', '');
+        voiceBtnText.textContent = 'در حال گوش دادن...';
+        setStatus('گوش می‌دهم...', '');
       };
       recognition.onresult = (event) => {
         const transcript = event.results[0][0].transcript.trim();
         if (transcript) {
           taskInput.value = transcript;
           setStatus(`شنیده شد: «${transcript}»`, 'success');
-          setTimeout(() => addTask(), 600);
+          setTimeout(() => addTask(), 500);
         }
       };
       recognition.onerror = (event) => {
@@ -248,7 +446,7 @@
         voiceBtn.classList.remove('listening');
         voiceBtnText.textContent = 'ضبط صدا (بگو کارتو)';
         if (event.error === 'no-speech') setStatus('صدایی شنیده نشد.', 'error');
-        else if (event.error === 'not-allowed') setStatus('دسترسی به میکروفون داده نشده.', 'error');
+        else if (event.error === 'not-allowed') setStatus('دسترسی میکروفون داده نشده.', 'error');
         else setStatus('خطا در تشخیص صدا', 'error');
       };
       recognition.onend = () => {
@@ -369,8 +567,8 @@
               </div>
             </div>
             <div class="task-meta">
-              <span>📅 ثبت: ${formatDateTime(task.createdAt)}</span>
-              <span class="due-date${overdueClass}">⏰ انجام تا: ${formatDate(task.dueDate)}</span>
+              <span>📅 ${formatDateTime(task.createdAt)}</span>
+              <span class="due-date${overdueClass}">⏰ ${formatDate(task.dueDate)}</span>
             </div>`;
         }
         taskList.appendChild(li);
@@ -380,46 +578,36 @@
     async function loadTasks() {
       try {
         const res = await fetch(BASE, { headers: headers() });
-        if (!res.ok) {
-          const errText = await res.text();
-          throw new Error(errText);
-        }
+        if (!res.ok) throw new Error(await res.text());
         const data = await res.json();
         tasks = data.rows || data.documents || data.data || [];
         renderTasks();
       } catch (err) {
         console.error(err);
-        loadingEl.textContent = 'خطا در اتصال به Appwrite';
-        setStatus('خطا در بارگذاری: ' + (err.message || err), 'error');
+        loadingEl.textContent = 'خطا در اتصال';
+        setStatus('خطا در بارگذاری', 'error');
       }
     }
 
     async function addTask() {
       const text = taskInput.value.trim();
       if (!text) { setStatus('متنی وارد نشده!', 'error'); return; }
-
       try {
         setStatus('در حال ذخیره...', '');
         const rowId = 'id_' + Date.now() + '_' + Math.random().toString(36).slice(2, 9);
-        const body = {
-          rowId: rowId,
-          data: {
-            text,
-            done: false,
-            category: currentCategory,
-            dueDate: dueDateInput.value || today,
-            createdAt: new Date().toISOString()
-          }
-        };
         const res = await fetch(BASE, {
           method: 'POST',
           headers: headers(),
-          body: JSON.stringify(body)
+          body: JSON.stringify({
+            rowId,
+            data: {
+              text, done: false, category: currentCategory,
+              dueDate: dueDateInput.value || today,
+              createdAt: new Date().toISOString()
+            }
+          })
         });
-        if (!res.ok) {
-          const errText = await res.text();
-          throw new Error(errText);
-        }
+        if (!res.ok) throw new Error(await res.text());
         taskInput.value = '';
         dueDateInput.value = today;
         setStatus('کار اضافه شد ✓', 'success');
@@ -427,7 +615,7 @@
         await loadTasks();
       } catch (err) {
         console.error(err);
-        setStatus('خطا در ذخیره: ' + (err.message || err), 'error');
+        setStatus('خطا در ذخیره', 'error');
       }
     }
 
@@ -435,71 +623,48 @@
       const task = tasks.find(t => (t.$id || t.id) === id);
       if (!task) return;
       try {
-        const res = await fetch(`${BASE}/${id}`, {
-          method: 'PATCH',
-          headers: headers(),
+        await fetch(`${BASE}/${id}`, {
+          method: 'PATCH', headers: headers(),
           body: JSON.stringify({ data: { done: !task.done } })
         });
-        if (!res.ok) throw new Error(await res.text());
         await loadTasks();
-      } catch (err) {
-        setStatus('خطا در به‌روزرسانی', 'error');
-      }
+      } catch (err) { setStatus('خطا در به‌روزرسانی', 'error'); }
     }
 
     async function deleteTask(id) {
       try {
-        const res = await fetch(`${BASE}/${id}`, {
-          method: 'DELETE',
-          headers: headers()
-        });
-        if (!res.ok) throw new Error(await res.text());
-        setStatus('کار حذف شد', 'success');
+        await fetch(`${BASE}/${id}`, { method: 'DELETE', headers: headers() });
+        setStatus('حذف شد', 'success');
         setTimeout(() => setStatus(''), 1500);
         await loadTasks();
-      } catch (err) {
-        setStatus('خطا در حذف', 'error');
-      }
+      } catch (err) { setStatus('خطا در حذف', 'error'); }
     }
 
     async function saveEdit(id, li) {
-      const textInput = li.querySelector('.edit-text');
-      const dueInput = li.querySelector('.edit-due');
-      const newText = textInput.value.trim();
-      const newDue = dueInput.value || today;
-      if (!newText) { setStatus('متن نمی‌تواند خالی باشد', 'error'); return; }
-
+      const newText = li.querySelector('.edit-text').value.trim();
+      const newDue = li.querySelector('.edit-due').value || today;
+      if (!newText) { setStatus('متن خالی مجاز نیست', 'error'); return; }
       try {
-        const res = await fetch(`${BASE}/${id}`, {
-          method: 'PATCH',
-          headers: headers(),
+        await fetch(`${BASE}/${id}`, {
+          method: 'PATCH', headers: headers(),
           body: JSON.stringify({ data: { text: newText, dueDate: newDue } })
         });
-        if (!res.ok) throw new Error(await res.text());
         editingId = null;
-        setStatus('ویرایش ذخیره شد ✓', 'success');
+        setStatus('ذخیره شد ✓', 'success');
         setTimeout(() => setStatus(''), 1500);
         await loadTasks();
-      } catch (err) {
-        setStatus('خطا در ذخیره ویرایش', 'error');
-      }
+      } catch (err) { setStatus('خطا در ویرایش', 'error'); }
     }
 
     async function clearDone() {
       try {
-        const toDelete = getFilteredTasks().filter(t => t.done);
-        for (const t of toDelete) {
-          await fetch(`${BASE}/${t.$id || t.id}`, {
-            method: 'DELETE',
-            headers: headers()
-          });
+        for (const t of getFilteredTasks().filter(t => t.done)) {
+          await fetch(`${BASE}/${t.$id || t.id}`, { method: 'DELETE', headers: headers() });
         }
-        setStatus('کارهای انجام‌شده این بخش پاک شدند', 'success');
+        setStatus('پاک شدند', 'success');
         setTimeout(() => setStatus(''), 1500);
         await loadTasks();
-      } catch (err) {
-        setStatus('خطا در پاک‌سازی', 'error');
-      }
+      } catch (err) { setStatus('خطا', 'error'); }
     }
 
     voiceBtn.addEventListener('click', () => {
@@ -524,16 +689,11 @@
       if (!li) return;
       const id = li.dataset.id;
       const action = e.target.closest('[data-action]')?.dataset.action;
-
       if (action === 'toggle' || e.target.type === 'checkbox') toggleTask(id);
       else if (action === 'delete') deleteTask(id);
       else if (action === 'edit') {
-        editingId = id;
-        renderTasks();
-        setTimeout(() => {
-          const input = document.querySelector(`[data-id="${id}"] .edit-text`);
-          if (input) input.focus();
-        }, 50);
+        editingId = id; renderTasks();
+        setTimeout(() => document.querySelector(`[data-id="${id}"] .edit-text`)?.focus(), 50);
       }
       else if (action === 'cancel-edit') { editingId = null; renderTasks(); }
       else if (action === 'save-edit') saveEdit(id, li);
@@ -549,7 +709,7 @@
 
     clearBtn.addEventListener('click', clearDone);
 
-    loadTasks();
+    checkAuth();
   </script>
 </body>
 </html>
