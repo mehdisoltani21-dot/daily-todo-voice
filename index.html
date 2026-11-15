@@ -379,18 +379,13 @@
 
     async function loadTasks() {
       try {
-        const res = await fetch(`${BASE}?queries[]=${encodeURIComponent('orderDesc("createdAt")')}&queries[]=${encodeURIComponent('limit(500)')}`, {
-          headers: headers()
-        });
+        const res = await fetch(BASE, { headers: headers() });
         if (!res.ok) {
-          const res2 = await fetch(`${BASE}?queries[]=${encodeURIComponent('limit(500)')}`, { headers: headers() });
-          if (!res2.ok) throw new Error(await res2.text());
-          const data2 = await res2.json();
-          tasks = data2.rows || data2.documents || data2.data || [];
-        } else {
-          const data = await res.json();
-          tasks = data.rows || data.documents || data.data || [];
+          const errText = await res.text();
+          throw new Error(errText);
         }
+        const data = await res.json();
+        tasks = data.rows || data.documents || data.data || [];
         renderTasks();
       } catch (err) {
         console.error(err);
