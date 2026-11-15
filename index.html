@@ -168,6 +168,38 @@
     }
     .bottom-nav button span.icon { font-size: 1.35rem; line-height: 1; }
     .bottom-nav button.active { color: #111; background: var(--primary); }
+    .bottom-nav.hidden { display: none !important; }
+
+    #panel-home {
+      display: none; min-height: calc(100vh - 140px); flex-direction: column;
+      align-items: center; justify-content: center; padding: 24px 16px 40px; text-align: center;
+    }
+    #panel-home.active { display: flex; }
+    .home-title {
+      font-size: 1.85rem; font-weight: 800; color: var(--primary); margin-bottom: 48px;
+      display: flex; align-items: center; justify-content: center; gap: 12px; flex-wrap: wrap;
+    }
+    .home-title .emoji { font-size: 2.2rem; }
+    .home-actions { display: flex; gap: 14px; width: 100%; max-width: 420px; flex-wrap: wrap; }
+    .home-btn {
+      flex: 1; min-width: 140px; border: none; border-radius: 16px; padding: 18px 16px;
+      font-family: Vazirmatn, sans-serif; font-size: 1rem; font-weight: 700; cursor: pointer;
+      display: flex; align-items: center; justify-content: center; gap: 10px;
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .home-btn:active { transform: scale(0.97); }
+    .home-btn.primary {
+      background: var(--primary); color: #111;
+      box-shadow: 0 6px 20px rgba(245, 197, 24, 0.35);
+    }
+    .home-btn.secondary {
+      background: #2A2A2A; color: #B0B0B0; border: 1px solid #3A3A3A;
+    }
+    [data-theme="light"] .home-btn.secondary {
+      background: #E8E4DC; color: #555; border-color: #D0CBC0;
+    }
+    .home-btn .icon { font-size: 1.25rem; }
+
     #app { display: none; }
     @media (max-width: 500px) {
       body { padding: 10px; padding-bottom: 88px; }
@@ -175,6 +207,7 @@
       header h1 { font-size: 1.25rem; }
       .tab { font-size: 0.8rem; padding: 10px 4px; }
       .login-card { padding: 28px 20px; }
+      .home-title { font-size: 1.5rem; }
     }
   </style>
 </head>
@@ -202,7 +235,22 @@
       </div>
     </header>
 
-    <div id="panel-add" class="panel active">
+    <div id="panel-home" class="panel active">
+      <div class="home-title">
+        <span>لیست کارهای روزانه</span>
+        <span class="emoji">📋</span>
+      </div>
+      <div class="home-actions">
+        <button type="button" class="home-btn primary" data-go="view">
+          <span class="icon">📄</span> مشاهده کارها
+        </button>
+        <button type="button" class="home-btn secondary" data-go="add">
+          <span class="icon">➕</span> ورود کار
+        </button>
+      </div>
+    </div>
+
+    <div id="panel-add" class="panel">
       <div class="tabs" id="tabs">
         <button class="tab active" data-cat="personal">شخصی <span class="count" id="count-personal">۰</span></button>
         <button class="tab" data-cat="building">ساختمان <span class="count" id="count-building">۰</span></button>
@@ -254,8 +302,9 @@
     </div>
   </div>
 
-  <nav class="bottom-nav" id="bottomNav" style="display:none;">
-    <button type="button" data-panel="add" class="active"><span class="icon">➕</span>ورود کار</button>
+  <nav class="bottom-nav hidden" id="bottomNav" style="display:none;">
+    <button type="button" data-panel="home"><span class="icon">🏠</span>خانه</button>
+    <button type="button" data-panel="add"><span class="icon">➕</span>ورود کار</button>
     <button type="button" data-panel="view"><span class="icon">📋</span>مشاهده کارها</button>
   </nav>
 
@@ -305,24 +354,13 @@
       localStorage.setItem('todo_password', p);
       try {
         let res = await fetch(`${BASE}/${SETTINGS_ROW_ID}`, {
-          method: 'PATCH',
-          headers: headers(),
-          body: JSON.stringify({ data: {
-            text: p, category: '_system', done: false,
-            dueDate: null, createdAt: new Date().toISOString()
-          }})
+          method: 'PATCH', headers: headers(),
+          body: JSON.stringify({ data: { text: p, category: '_system', done: false, dueDate: null, createdAt: new Date().toISOString() } })
         });
         if (res.status === 404) {
           res = await fetch(BASE, {
-            method: 'POST',
-            headers: headers(),
-            body: JSON.stringify({
-              rowId: SETTINGS_ROW_ID,
-              data: {
-                text: p, category: '_system', done: false,
-                dueDate: null, createdAt: new Date().toISOString()
-              }
-            })
+            method: 'POST', headers: headers(),
+            body: JSON.stringify({ rowId: SETTINGS_ROW_ID, data: { text: p, category: '_system', done: false, dueDate: null, createdAt: new Date().toISOString() } })
           });
         }
         if (!res.ok) console.warn('cloud password save failed', await res.text());
@@ -366,7 +404,20 @@
       loginScreen.style.display = 'none';
       appEl.style.display = 'block';
       bottomNav.style.display = 'flex';
+      goPanel('home');
       loadTasks();
+    }
+
+    function goPanel(panel) {
+      document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+      const el = document.getElementById('panel-' + panel);
+      if (el) el.classList.add('active');
+      document.querySelectorAll('.bottom-nav button').forEach(b => {
+        b.classList.toggle('active', b.dataset.panel === panel);
+      });
+      if (panel === 'home') bottomNav.classList.add('hidden');
+      else bottomNav.classList.remove('hidden');
+      if (panel === 'view') renderTasks();
     }
 
     function checkAuth() {
@@ -401,12 +452,12 @@
     bottomNav.addEventListener('click', (e) => {
       const btn = e.target.closest('button[data-panel]');
       if (!btn) return;
-      const panel = btn.dataset.panel;
-      document.querySelectorAll('.bottom-nav button').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
-      document.getElementById('panel-' + panel).classList.add('active');
-      if (panel === 'view') renderTasks();
+      goPanel(btn.dataset.panel);
+    });
+    document.getElementById('panel-home').addEventListener('click', (e) => {
+      const btn = e.target.closest('[data-go]');
+      if (!btn) return;
+      goPanel(btn.dataset.go);
     });
 
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -463,13 +514,10 @@
     function escapeHtml(text) { const d = document.createElement('div'); d.textContent = text; return d.innerHTML; }
 
     function setCategory(cat) {
-      currentCategory = cat;
-      editingId = null;
+      currentCategory = cat; editingId = null;
       [tabs, tabsView].forEach(group => {
         if (!group) return;
-        group.querySelectorAll('.tab').forEach(t => {
-          t.classList.toggle('active', t.dataset.cat === cat);
-        });
+        group.querySelectorAll('.tab').forEach(t => t.classList.toggle('active', t.dataset.cat === cat));
       });
       renderTasks();
     }
@@ -513,12 +561,9 @@
         const all = data.rows || data.documents || data.data || [];
         tasks = all.filter(t => (t.category || '') !== '_system');
         const settings = all.find(t => (t.$id || t.id) === SETTINGS_ROW_ID);
-        if (settings) {
-          const cloudPass = settings.text;
-          if (cloudPass) {
-            cachedPassword = cloudPass;
-            localStorage.setItem('todo_password', cloudPass);
-          }
+        if (settings && settings.text) {
+          cachedPassword = settings.text;
+          localStorage.setItem('todo_password', settings.text);
         }
         renderTasks();
       } catch (err) {
