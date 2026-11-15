@@ -18,25 +18,25 @@
       --primary: #F5A623; --primary-dark: #D4890A; --primary-light: #FFD54F;
       --accent: #FFC107; --success: #43A047; --danger: #E53935;
       --bg: #F7F5F0; --bg2: #EFEBE3; --card: #FFFFFF;
-      --text: #1A1A1A; --text2: #3D3D3D; --muted: #7A7568;
-      --border: #E0D9CC; --shadow: rgba(0,0,0,0.08); --input-bg: #FAF8F4;
+      --text: #1A1A1A; --muted: #7A7568; --border: #E0D9CC;
+      --shadow: rgba(0,0,0,0.08); --input-bg: #FAF8F4;
     }
     [data-theme="dark"] {
       --primary: #F5C518; --primary-dark: #D4A017; --primary-light: #FFE082;
       --accent: #FFC107; --success: #66BB6A; --danger: #EF5350;
       --bg: #0D0D0D; --bg2: #141414; --card: #1C1C1C;
-      --text: #F5F5F5; --text2: #E0E0E0; --muted: #9E9E9E;
-      --border: #2A2A2A; --shadow: rgba(0,0,0,0.5); --input-bg: #242424;
+      --text: #F5F5F5; --muted: #9E9E9E; --border: #2A2A2A;
+      --shadow: rgba(0,0,0,0.5); --input-bg: #242424;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
       font-family: Vazirmatn, Tahoma, sans-serif;
       background: linear-gradient(160deg, var(--bg) 0%, var(--bg2) 100%);
       min-height: 100vh; color: var(--text); padding: 16px;
-      transition: background 0.3s, color 0.3s;
+      padding-bottom: 88px; transition: background 0.3s, color 0.3s;
     }
     .container { max-width: 720px; margin: 0 auto; }
-    #loginScreen { display: flex; align-items: center; justify-content: center; min-height: 90vh; }
+    #loginScreen { display: flex; align-items: center; justify-content: center; min-height: 90vh; padding-bottom: 0; }
     .login-card {
       background: var(--card); border-radius: 24px; padding: 40px 32px;
       width: 100%; max-width: 380px; box-shadow: 0 12px 40px var(--shadow); text-align: center;
@@ -51,35 +51,34 @@
     .login-card input:focus { border-color: var(--primary); }
     .login-card button {
       width: 100%; padding: 14px; background: var(--primary); color: #111; border: none;
-      border-radius: 12px; font-family: Vazirmatn, sans-serif; font-size: 1.05rem;
-      font-weight: 600; cursor: pointer;
+      border-radius: 12px; font-family: Vazirmatn, sans-serif; font-size: 1.05rem; font-weight: 600; cursor: pointer;
     }
     .login-card button:hover { background: var(--primary-dark); color: #fff; }
     .login-error { color: var(--danger); font-size: 0.9rem; margin-top: 12px; min-height: 20px; }
-    header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; flex-wrap: wrap; gap: 12px; }
-    .header-title h1 { font-size: 1.55rem; color: var(--primary); margin-bottom: 2px; }
-    .header-title p { color: var(--muted); font-size: 0.85rem; }
-    .header-actions { display: flex; gap: 10px; align-items: center; }
+    header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; flex-wrap: wrap; gap: 10px; }
+    .header-title h1 { font-size: 1.4rem; color: var(--primary); margin-bottom: 2px; }
+    .header-title p { color: var(--muted); font-size: 0.8rem; }
+    .header-actions { display: flex; gap: 8px; }
     .theme-btn, .logout-btn {
       background: var(--card); border: 2px solid var(--border); border-radius: 12px;
-      padding: 10px 14px; cursor: pointer; font-size: 1.1rem; color: var(--text);
-      font-family: Vazirmatn, sans-serif;
+      padding: 8px 12px; cursor: pointer; font-size: 1rem; color: var(--text); font-family: Vazirmatn, sans-serif;
     }
     .theme-btn:hover, .logout-btn:hover { border-color: var(--primary); background: var(--primary); color: #111; }
     .tabs {
-      display: flex; gap: 8px; margin-bottom: 18px; background: var(--card);
+      display: flex; gap: 8px; margin-bottom: 16px; background: var(--card);
       padding: 6px; border-radius: 16px; box-shadow: 0 4px 16px var(--shadow);
     }
     .tab {
-      flex: 1; padding: 12px 6px; border: none; border-radius: 12px; background: transparent;
-      font-family: Vazirmatn, sans-serif; font-size: 0.92rem; font-weight: 600;
-      color: var(--muted); cursor: pointer;
+      flex: 1; padding: 11px 6px; border: none; border-radius: 12px; background: transparent;
+      font-family: Vazirmatn, sans-serif; font-size: 0.88rem; font-weight: 600; color: var(--muted); cursor: pointer;
     }
     .tab:hover { background: var(--bg); color: var(--primary); }
     .tab.active { background: var(--primary); color: #111; box-shadow: 0 4px 12px rgba(245,197,24,0.35); }
-    .tab .count { display: inline-block; background: rgba(0,0,0,0.15); font-size: 0.72rem; padding: 1px 7px; border-radius: 10px; margin-right: 3px; }
+    .tab .count { display: inline-block; background: rgba(0,0,0,0.15); font-size: 0.7rem; padding: 1px 6px; border-radius: 10px; margin-right: 2px; }
     .tab:not(.active) .count { background: var(--bg2); color: var(--primary); }
-    .card { background: var(--card); border-radius: 20px; box-shadow: 0 6px 24px var(--shadow); padding: 22px; margin-bottom: 18px; }
+    .card { background: var(--card); border-radius: 20px; box-shadow: 0 6px 24px var(--shadow); padding: 20px; margin-bottom: 16px; }
+    .panel { display: none; }
+    .panel.active { display: block; }
     .voice-btn {
       display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%;
       background: var(--primary); color: #111; border: none; border-radius: 14px; padding: 16px;
@@ -97,7 +96,7 @@
     .manual-input input:focus { border-color: var(--primary); }
     .manual-input button {
       background: var(--success); color: white; border: none; border-radius: 12px;
-      padding: 0 20px; font-size: 0.95rem; font-weight: 600; font-family: Vazirmatn, sans-serif; cursor: pointer;
+      padding: 0 18px; font-size: 0.95rem; font-weight: 600; font-family: Vazirmatn, sans-serif; cursor: pointer;
     }
     .due-date-row { display: flex; align-items: center; gap: 10px; margin-top: 12px; }
     .due-date-row label { font-size: 0.9rem; color: var(--muted); white-space: nowrap; }
@@ -109,8 +108,8 @@
     .status.error { color: var(--danger); }
     .status.success { color: var(--success); }
     .tasks-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
-    .tasks-header h2 { font-size: 1.15rem; color: var(--text); }
-    .task-count { background: var(--primary); color: #111; font-size: 0.82rem; padding: 4px 12px; border-radius: 20px; font-weight: 600; }
+    .tasks-header h2 { font-size: 1.1rem; color: var(--text); }
+    .task-count { background: var(--primary); color: #111; font-size: 0.8rem; padding: 4px 12px; border-radius: 20px; font-weight: 600; }
     .task-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
     .task-item {
       background: var(--input-bg); border: 1px solid var(--border); border-radius: 14px;
@@ -124,7 +123,7 @@
     .task-text { flex: 1; font-size: 1rem; line-height: 1.5; word-break: break-word; }
     .task-actions { display: flex; gap: 4px; }
     .task-actions button { background: none; border: none; cursor: pointer; padding: 5px; border-radius: 8px; color: var(--muted); }
-    .task-actions button:hover { background: var(--bg); color: var(--primary); }
+    .task-actions button:hover { color: var(--primary); }
     .task-actions button.delete-btn:hover { color: var(--danger); }
     .task-meta { display: flex; flex-wrap: wrap; gap: 10px; font-size: 0.8rem; color: var(--muted); padding-right: 30px; }
     .due-date { color: var(--primary); font-weight: 500; }
@@ -155,10 +154,26 @@
       padding: 6px 10px; border: 1px solid var(--border); border-radius: 8px;
       font-family: Vazirmatn, sans-serif; background: var(--input-bg); color: var(--text);
     }
+    .bottom-nav {
+      position: fixed; bottom: 0; left: 0; right: 0; z-index: 100;
+      background: var(--card); border-top: 1px solid var(--border);
+      display: flex; padding: 8px 12px calc(8px + env(safe-area-inset-bottom));
+      box-shadow: 0 -4px 20px var(--shadow); max-width: 720px; margin: 0 auto;
+    }
+    .bottom-nav button {
+      flex: 1; border: none; background: transparent; padding: 10px 8px;
+      font-family: Vazirmatn, sans-serif; font-size: 0.85rem; font-weight: 600;
+      color: var(--muted); cursor: pointer; border-radius: 12px; display: flex;
+      flex-direction: column; align-items: center; gap: 4px;
+    }
+    .bottom-nav button span.icon { font-size: 1.35rem; line-height: 1; }
+    .bottom-nav button.active { color: #111; background: var(--primary); }
     #app { display: none; }
     @media (max-width: 500px) {
-      body { padding: 10px; } .card { padding: 16px; }
-      header h1 { font-size: 1.3rem; } .tab { font-size: 0.82rem; padding: 10px 4px; }
+      body { padding: 10px; padding-bottom: 88px; }
+      .card { padding: 16px; }
+      header h1 { font-size: 1.25rem; }
+      .tab { font-size: 0.8rem; padding: 10px 4px; }
       .login-card { padding: 28px 20px; }
     }
   </style>
@@ -187,49 +202,62 @@
       </div>
     </header>
 
-    <div class="tabs" id="tabs">
-      <button class="tab active" data-cat="personal">شخصی <span class="count" id="count-personal">۰</span></button>
-      <button class="tab" data-cat="building">ساختمان <span class="count" id="count-building">۰</span></button>
-      <button class="tab" data-cat="company">شرکت <span class="count" id="count-company">۰</span></button>
+    <div id="panel-add" class="panel active">
+      <div class="tabs" id="tabs">
+        <button class="tab active" data-cat="personal">شخصی <span class="count" id="count-personal">۰</span></button>
+        <button class="tab" data-cat="building">ساختمان <span class="count" id="count-building">۰</span></button>
+        <button class="tab" data-cat="company">شرکت <span class="count" id="count-company">۰</span></button>
+      </div>
+      <div class="card">
+        <button id="voiceBtn" class="voice-btn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/>
+            <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
+            <line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/>
+          </svg>
+          <span id="voiceBtnText">ضبط صدا (بگو کارتو)</span>
+        </button>
+        <div class="manual-input">
+          <input type="text" id="taskInput" placeholder="یا اینجا بنویس...">
+          <button id="addBtn">افزودن</button>
+        </div>
+        <div class="due-date-row">
+          <label for="dueDate">تاریخ انجام:</label>
+          <input type="date" id="dueDate">
+        </div>
+        <div id="status" class="status"></div>
+      </div>
     </div>
 
-    <div class="card">
-      <button id="voiceBtn" class="voice-btn">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/>
-          <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
-          <line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/>
-        </svg>
-        <span id="voiceBtnText">ضبط صدا (بگو کارتو)</span>
-      </button>
-      <div class="manual-input">
-        <input type="text" id="taskInput" placeholder="یا اینجا بنویس...">
-        <button id="addBtn">افزودن</button>
+    <div id="panel-view" class="panel">
+      <div class="tabs" id="tabsView">
+        <button class="tab active" data-cat="personal">شخصی <span class="count" id="vcount-personal">۰</span></button>
+        <button class="tab" data-cat="building">ساختمان <span class="count" id="vcount-building">۰</span></button>
+        <button class="tab" data-cat="company">شرکت <span class="count" id="vcount-company">۰</span></button>
       </div>
-      <div class="due-date-row">
-        <label for="dueDate">تاریخ انجام:</label>
-        <input type="date" id="dueDate">
+      <div class="card">
+        <div class="tasks-header">
+          <h2 id="sheetTitle">کارهای شخصی</h2>
+          <span class="task-count" id="taskCount">۰ کار</span>
+        </div>
+        <div id="loading" class="loading">در حال بارگذاری...</div>
+        <ul class="task-list" id="taskList" style="display:none;"></ul>
+        <div class="empty-state" id="emptyState" style="display:none;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2"/>
+            <rect x="9" y="3" width="6" height="4" rx="1"/><path d="M9 12h6M9 16h6"/>
+          </svg>
+          <p>هنوز کاری در این بخش ثبت نشده</p>
+        </div>
+        <button class="clear-btn" id="clearBtn" style="display:none">پاک کردن کارهای انجام‌شده این بخش</button>
       </div>
-      <div id="status" class="status"></div>
-    </div>
-
-    <div class="card">
-      <div class="tasks-header">
-        <h2 id="sheetTitle">کارهای شخصی</h2>
-        <span class="task-count" id="taskCount">۰ کار</span>
-      </div>
-      <div id="loading" class="loading">در حال بارگذاری...</div>
-      <ul class="task-list" id="taskList" style="display:none;"></ul>
-      <div class="empty-state" id="emptyState" style="display:none;">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-          <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2"/>
-          <rect x="9" y="3" width="6" height="4" rx="1"/><path d="M9 12h6M9 16h6"/>
-        </svg>
-        <p>هنوز کاری در این بخش ثبت نشده</p>
-      </div>
-      <button class="clear-btn" id="clearBtn" style="display:none">پاک کردن کارهای انجام‌شده این بخش</button>
     </div>
   </div>
+
+  <nav class="bottom-nav" id="bottomNav" style="display:none;">
+    <button type="button" data-panel="add" class="active"><span class="icon">➕</span>ورود کار</button>
+    <button type="button" data-panel="view"><span class="icon">📋</span>مشاهده کارها</button>
+  </nav>
 
   <div id="passModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.5); z-index:1000; align-items:center; justify-content:center;">
     <div class="login-card" style="margin:16px;">
@@ -265,6 +293,7 @@
 
     const loginScreen = document.getElementById('loginScreen');
     const appEl = document.getElementById('app');
+    const bottomNav = document.getElementById('bottomNav');
     const passInput = document.getElementById('passInput');
     const loginBtn = document.getElementById('loginBtn');
     const loginError = document.getElementById('loginError');
@@ -283,13 +312,19 @@
     const loadingEl = document.getElementById('loading');
     const sheetTitle = document.getElementById('sheetTitle');
     const tabs = document.getElementById('tabs');
+    const tabsView = document.getElementById('tabsView');
     const today = new Date().toISOString().split('T')[0];
     dueDateInput.value = today;
 
+    function showApp() {
+      loginScreen.style.display = 'none';
+      appEl.style.display = 'block';
+      bottomNav.style.display = 'flex';
+      loadTasks();
+    }
+
     function checkAuth() {
-      if (sessionStorage.getItem('todo_auth') === '1') {
-        loginScreen.style.display = 'none'; appEl.style.display = 'block'; loadTasks();
-      }
+      if (sessionStorage.getItem('todo_auth') === '1') showApp();
     }
     loginBtn.addEventListener('click', doLogin);
     passInput.addEventListener('keydown', e => { if (e.key === 'Enter') doLogin(); });
@@ -297,7 +332,7 @@
       if (passInput.value === getPassword()) {
         sessionStorage.setItem('todo_auth', '1');
         loginError.textContent = '';
-        loginScreen.style.display = 'none'; appEl.style.display = 'block'; loadTasks();
+        showApp();
       } else {
         loginError.textContent = 'رمز عبور اشتباه است';
         passInput.value = ''; passInput.focus();
@@ -313,6 +348,17 @@
     applyTheme(localStorage.getItem('todo_theme') || 'dark');
     themeBtn.addEventListener('click', () => {
       applyTheme(document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+    });
+
+    bottomNav.addEventListener('click', (e) => {
+      const btn = e.target.closest('button[data-panel]');
+      if (!btn) return;
+      const panel = btn.dataset.panel;
+      document.querySelectorAll('.bottom-nav button').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+      document.getElementById('panel-' + panel).classList.add('active');
+      if (panel === 'view') renderTasks();
     });
 
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -360,11 +406,25 @@
     function updateTabCounts() {
       ['personal','building','company'].forEach(cat => {
         const c = tasks.filter(t => (t.category || 'personal') === cat && !t.done).length;
-        const el = document.getElementById('count-' + cat);
-        if (el) el.textContent = toPersianNum(c);
+        const el1 = document.getElementById('count-' + cat);
+        const el2 = document.getElementById('vcount-' + cat);
+        if (el1) el1.textContent = toPersianNum(c);
+        if (el2) el2.textContent = toPersianNum(c);
       });
     }
     function escapeHtml(text) { const d = document.createElement('div'); d.textContent = text; return d.innerHTML; }
+
+    function setCategory(cat) {
+      currentCategory = cat;
+      editingId = null;
+      [tabs, tabsView].forEach(group => {
+        if (!group) return;
+        group.querySelectorAll('.tab').forEach(t => {
+          t.classList.toggle('active', t.dataset.cat === cat);
+        });
+      });
+      renderTasks();
+    }
 
     function renderTasks() {
       loadingEl.style.display = 'none'; taskList.style.display = 'flex';
@@ -457,12 +517,8 @@
     voiceBtn.addEventListener('click', () => { if (!recognition) return; isListening ? recognition.stop() : recognition.start(); });
     addBtn.addEventListener('click', addTask);
     taskInput.addEventListener('keydown', e => { if (e.key === 'Enter') addTask(); });
-    tabs.addEventListener('click', (e) => {
-      const btn = e.target.closest('.tab'); if (!btn) return;
-      currentCategory = btn.dataset.cat; editingId = null;
-      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-      btn.classList.add('active'); renderTasks();
-    });
+    tabs.addEventListener('click', (e) => { const btn = e.target.closest('.tab'); if (btn) setCategory(btn.dataset.cat); });
+    tabsView.addEventListener('click', (e) => { const btn = e.target.closest('.tab'); if (btn) setCategory(btn.dataset.cat); });
     taskList.addEventListener('click', (e) => {
       const li = e.target.closest('.task-item'); if (!li) return;
       const id = li.dataset.id;
