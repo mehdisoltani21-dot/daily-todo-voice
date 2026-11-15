@@ -6,15 +6,8 @@
   <title>لیست کارهای روزانه صوتی</title>
   <style>
     :root {
-      --primary: #4f46e5;
-      --primary-dark: #4338ca;
-      --success: #10b981;
-      --danger: #ef4444;
-      --bg: #f8fafc;
-      --card: #ffffff;
-      --text: #1e293b;
-      --muted: #64748b;
-      --border: #e2e8f0;
+      --primary: #4f46e5; --primary-dark: #4338ca; --success: #10b981; --danger: #ef4444;
+      --bg: #f8fafc; --card: #ffffff; --text: #1e293b; --muted: #64748b; --border: #e2e8f0;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
@@ -184,20 +177,20 @@
     </div>
   </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/appwrite@16.0.2"></script>
   <script>
     const ENDPOINT = 'https://fra.cloud.appwrite.io/v1';
     const PROJECT_ID = '6af9708b001f463beb0c';
     const DATABASE_ID = '6af97136002adb30739e';
     const TABLE_ID = '6af97156001f09100a1c';
 
-    const { Client, TablesDB, ID, Query } = Appwrite;
+    const BASE = `${ENDPOINT}/tablesdb/${DATABASE_ID}/tables/${TABLE_ID}/rows`;
 
-    const client = new Client()
-      .setEndpoint(ENDPOINT)
-      .setProject(PROJECT_ID);
-
-    const tablesDB = new TablesDB(client);
+    function headers() {
+      return {
+        'Content-Type': 'application/json',
+        'X-Appwrite-Project': PROJECT_ID
+      };
+    }
 
     const CATEGORIES = {
       personal: { id: 'personal', title: 'کارهای شخصی' },
@@ -280,8 +273,7 @@
 
     function formatDateTime(iso) {
       if (!iso) return '—';
-      const d = new Date(iso);
-      return d.toLocaleDateString('fa-IR', { year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
+      return new Date(iso).toLocaleDateString('fa-IR', { year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
     }
 
     function isOverdue(dueDate) {
@@ -337,11 +329,12 @@
       });
 
       sorted.forEach(task => {
+        const id = task.$id || task.id;
         const li = document.createElement('li');
         li.className = 'task-item' + (task.done ? ' done' : '');
-        li.dataset.id = task.$id || task.id;
+        li.dataset.id = id;
 
-        if (editingId === (task.$id || task.id)) {
+        if (editingId === id) {
           li.innerHTML = `
             <div class="edit-form">
               <input type="text" class="edit-text" value="${escapeHtml(task.text)}" />
@@ -386,27 +379,23 @@
 
     async function loadTasks() {
       try {
-        const res = await tablesDB.listRows({
-          databaseId: DATABASE_ID,
-          tableId: TABLE_ID,
-          queries: [Query.orderDesc('createdAt'), Query.limit(500)]
+        const res = await fetch(`${BASE}?queries[]=${encodeURIComponent('orderDesc("createdAt")')}&queries[]=${encodeURIComponent('limit(500)')}`, {
+          headers: headers()
         });
-        tasks = res.rows || res.documents || [];
+        if (!res.ok) {
+          const res2 = await fetch(`${BASE}?queries[]=${encodeURIComponent('limit(500)')}`, { headers: headers() });
+          if (!res2.ok) throw new Error(await res2.text());
+          const data2 = await res2.json();
+          tasks = data2.rows || data2.documents || data2.data || [];
+        } else {
+          const data = await res.json();
+          tasks = data.rows || data.documents || data.data || [];
+        }
         renderTasks();
       } catch (err) {
         console.error(err);
-        try {
-          const res = await tablesDB.listRows({
-            databaseId: DATABASE_ID,
-            tableId: TABLE_ID,
-            queries: [Query.limit(500)]
-          });
-          tasks = res.rows || res.documents || [];
-          renderTasks();
-        } catch (e2) {
-          loadingEl.textContent = 'خطا در اتصال. Permissions یا ستون‌ها را چک کن.';
-          setStatus('خطا در بارگذاری: ' + (e2.message || e2), 'error');
-        }
+        loadingEl.textContent = 'خطا در اتصال به Appwrite';
+        setStatus('خطا در بارگذاری: ' + (err.message || err), 'error');
       }
     }
 
@@ -416,10 +405,7 @@
 
       try {
         setStatus('در حال ذخیره...', '');
-        await tablesDB.createRow({
-          databaseId: DATABASE_ID,
-          tableId: TABLE_ID,
-          rowId: ID.unique(),
+        const body = {
           data: {
             text,
             done: false,
@@ -427,7 +413,16 @@
             dueDate: dueDateInput.value || today,
             createdAt: new Date().toISOString()
           }
+        };
+        const res = await fetch(BASE, {
+          method: 'POST',
+          headers: headers(),
+          body: JSON.stringify(body)
         });
+        if (!res.ok) {
+          const errText = await res.text();
+          throw new Error(errText);
+        }
         taskInput.value = '';
         dueDateInput.value = today;
         setStatus('کار اضافه شد ✓', 'success');
@@ -443,12 +438,12 @@
       const task = tasks.find(t => (t.$id || t.id) === id);
       if (!task) return;
       try {
-        await tablesDB.updateRow({
-          databaseId: DATABASE_ID,
-          tableId: TABLE_ID,
-          rowId: id,
-          data: { done: !task.done }
+        const res = await fetch(`${BASE}/${id}`, {
+          method: 'PATCH',
+          headers: headers(),
+          body: JSON.stringify({ data: { done: !task.done } })
         });
+        if (!res.ok) throw new Error(await res.text());
         await loadTasks();
       } catch (err) {
         setStatus('خطا در به‌روزرسانی', 'error');
@@ -457,11 +452,11 @@
 
     async function deleteTask(id) {
       try {
-        await tablesDB.deleteRow({
-          databaseId: DATABASE_ID,
-          tableId: TABLE_ID,
-          rowId: id
+        const res = await fetch(`${BASE}/${id}`, {
+          method: 'DELETE',
+          headers: headers()
         });
+        if (!res.ok) throw new Error(await res.text());
         setStatus('کار حذف شد', 'success');
         setTimeout(() => setStatus(''), 1500);
         await loadTasks();
@@ -478,12 +473,12 @@
       if (!newText) { setStatus('متن نمی‌تواند خالی باشد', 'error'); return; }
 
       try {
-        await tablesDB.updateRow({
-          databaseId: DATABASE_ID,
-          tableId: TABLE_ID,
-          rowId: id,
-          data: { text: newText, dueDate: newDue }
+        const res = await fetch(`${BASE}/${id}`, {
+          method: 'PATCH',
+          headers: headers(),
+          body: JSON.stringify({ data: { text: newText, dueDate: newDue } })
         });
+        if (!res.ok) throw new Error(await res.text());
         editingId = null;
         setStatus('ویرایش ذخیره شد ✓', 'success');
         setTimeout(() => setStatus(''), 1500);
@@ -497,10 +492,9 @@
       try {
         const toDelete = getFilteredTasks().filter(t => t.done);
         for (const t of toDelete) {
-          await tablesDB.deleteRow({
-            databaseId: DATABASE_ID,
-            tableId: TABLE_ID,
-            rowId: t.$id || t.id
+          await fetch(`${BASE}/${t.$id || t.id}`, {
+            method: 'DELETE',
+            headers: headers()
           });
         }
         setStatus('کارهای انجام‌شده این بخش پاک شدند', 'success');
