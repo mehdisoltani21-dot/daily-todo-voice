@@ -7,39 +7,39 @@
   <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet">
   <style>
     :root {
-      --primary: #1E88E5;
-      --primary-dark: #1565C0;
-      --primary-light: #64B5F6;
-      --accent: #FF8F00;
+      --primary: #F5A623;
+      --primary-dark: #D4890A;
+      --primary-light: #FFD54F;
+      --accent: #FFC107;
       --success: #43A047;
       --danger: #E53935;
-      --bg: #E3F2FD;
-      --bg2: #BBDEFB;
+      --bg: #F7F5F0;
+      --bg2: #EFEBE3;
       --card: #FFFFFF;
-      --text: #0D47A1;
-      --text2: #1565C0;
-      --muted: #5472A3;
-      --border: #90CAF9;
-      --shadow: rgba(30, 136, 229, 0.18);
-      --input-bg: #F5FAFF;
+      --text: #1A1A1A;
+      --text2: #3D3D3D;
+      --muted: #7A7568;
+      --border: #E0D9CC;
+      --shadow: rgba(0, 0, 0, 0.08);
+      --input-bg: #FAF8F4;
     }
 
     [data-theme="dark"] {
-      --primary: #42A5F5;
-      --primary-dark: #1E88E5;
-      --primary-light: #90CAF9;
-      --accent: #FFB300;
+      --primary: #F5C518;
+      --primary-dark: #D4A017;
+      --primary-light: #FFE082;
+      --accent: #FFC107;
       --success: #66BB6A;
       --danger: #EF5350;
-      --bg: #0A1929;
-      --bg2: #102A43;
-      --card: #132F4C;
-      --text: #E3F2FD;
-      --text2: #90CAF9;
-      --muted: #7EA6D0;
-      --border: #1E4976;
-      --shadow: rgba(0, 0, 0, 0.4);
-      --input-bg: #0D2137;
+      --bg: #0D0D0D;
+      --bg2: #141414;
+      --card: #1C1C1C;
+      --text: #F5F5F5;
+      --text2: #E0E0E0;
+      --muted: #9E9E9E;
+      --border: #2A2A2A;
+      --shadow: rgba(0, 0, 0, 0.5);
+      --input-bg: #242424;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -81,12 +81,12 @@
     .login-card input:focus { border-color: var(--primary); }
     .login-card button {
       width: 100%; padding: 14px;
-      background: var(--primary); color: white; border: none;
+      background: var(--primary); color: #111; border: none;
       border-radius: 12px; font-family: Vazirmatn, sans-serif;
       font-size: 1.05rem; font-weight: 600; cursor: pointer;
       transition: background 0.2s;
     }
-    .login-card button:hover { background: var(--primary-dark); }
+    .login-card button:hover { background: var(--primary-dark); color: #fff; }
     .login-error { color: var(--danger); font-size: 0.9rem; margin-top: 12px; min-height: 20px; }
 
     header {
@@ -106,7 +106,7 @@
       font-family: Vazirmatn, sans-serif;
     }
     .theme-btn:hover, .logout-btn:hover {
-      border-color: var(--primary); background: var(--primary); color: white;
+      border-color: var(--primary); background: var(--primary); color: #111;
     }
 
     .tabs {
@@ -122,11 +122,11 @@
     }
     .tab:hover { background: var(--bg); color: var(--primary); }
     .tab.active {
-      background: var(--primary); color: white;
-      box-shadow: 0 4px 12px rgba(30,136,229,0.35);
+      background: var(--primary); color: #111;
+      box-shadow: 0 4px 12px rgba(245,197,24,0.35);
     }
     .tab .count {
-      display: inline-block; background: rgba(255,255,255,0.25);
+      display: inline-block; background: rgba(0,0,0,0.15);
       font-size: 0.72rem; padding: 1px 7px; border-radius: 10px; margin-right: 3px;
     }
     .tab:not(.active) .count {
@@ -142,12 +142,12 @@
 
     .voice-btn {
       display: flex; align-items: center; justify-content: center; gap: 10px;
-      width: 100%; background: var(--primary); color: white; border: none;
+      width: 100%; background: var(--primary); color: #111; border: none;
       border-radius: 14px; padding: 16px; font-size: 1.05rem; font-weight: 600;
       font-family: Vazirmatn, sans-serif; cursor: pointer; transition: all 0.2s;
     }
-    .voice-btn:hover { background: var(--primary-dark); transform: translateY(-1px); }
-    .voice-btn.listening { background: var(--danger); animation: pulse 1.4s infinite; }
+    .voice-btn:hover { background: var(--primary-dark); color: #fff; transform: translateY(-1px); }
+    .voice-btn.listening { background: var(--danger); color: #fff; animation: pulse 1.4s infinite; }
     @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.7} }
     .voice-btn svg { width: 22px; height: 22px; }
 
@@ -180,8 +180,8 @@
     .tasks-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
     .tasks-header h2 { font-size: 1.15rem; color: var(--text); }
     .task-count {
-      background: var(--primary); color: white; font-size: 0.82rem;
-      padding: 4px 12px; border-radius: 20px;
+      background: var(--primary); color: #111; font-size: 0.82rem;
+      padding: 4px 12px; border-radius: 20px; font-weight: 600;
     }
 
     .task-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
@@ -431,7 +431,7 @@
       localStorage.setItem('todo_theme', theme);
     }
 
-    const savedTheme = localStorage.getItem('todo_theme') || 'light';
+    const savedTheme = localStorage.getItem('todo_theme') || 'dark';
     applyTheme(savedTheme);
 
     themeBtn.addEventListener('click', () => {
@@ -464,7 +464,7 @@
       recognition.onerror = (event) => {
         isListening = false;
         voiceBtn.classList.remove('listening');
-        voiceBtnText.textContent = 'ضبط صدا (بگو کارتو)';
+        voiceBtnText.textContent = 'ضبط صداا (بگو کارتو)';
         if (event.error === 'no-speech') setStatus('صدایی شنیده نشد.', 'error');
         else if (event.error === 'not-allowed') setStatus('دسترسی میکروفون داده نشده.', 'error');
         else setStatus('خطا در تشخیص صدا', 'error');
@@ -729,7 +729,6 @@
 
     clearBtn.addEventListener('click', clearDone);
 
-    // Change password
     const passModal = document.getElementById('passModal');
     const changePassBtn = document.getElementById('changePassBtn');
     const savePassBtn = document.getElementById('savePassBtn');
