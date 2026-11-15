@@ -277,6 +277,7 @@
       </div>
       <div class="header-actions">
         <button class="theme-btn" id="themeBtn" title="تغییر تم">🌙</button>
+        <button class="logout-btn" id="changePassBtn" title="تغییر رمز">🔑</button>
         <button class="logout-btn" id="logoutBtn" title="خروج">خروج</button>
       </div>
     </header>
@@ -327,8 +328,27 @@
     </div>
   </div>
 
+  <div id="passModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.5); z-index:1000; align-items:center; justify-content:center;">
+    <div class="login-card" style="margin:16px;">
+      <h1 style="font-size:1.2rem;">تغییر رمز عبور</h1>
+      <p style="margin-bottom:16px;">رمز فعلی و رمز جدید را وارد کنید</p>
+      <input type="password" id="oldPass" placeholder="رمز فعلی">
+      <input type="password" id="newPass" placeholder="رمز جدید">
+      <input type="password" id="newPass2" placeholder="تکرار رمز جدید">
+      <button id="savePassBtn" style="margin-top:8px;">ذخیره رمز جدید</button>
+      <button id="cancelPassBtn" style="margin-top:8px; background:var(--border); color:var(--text);">انصراف</button>
+      <div class="login-error" id="passModalError"></div>
+    </div>
+  </div>
+
   <script>
-    const PASSWORD = '1234';
+    function getPassword() {
+      return localStorage.getItem('todo_password') || '1234';
+    }
+    function setPassword(p) {
+      localStorage.setItem('todo_password', p);
+    }
+
     const ENDPOINT = 'https://fra.cloud.appwrite.io/v1';
     const PROJECT_ID = '6af9708b001f463beb0c';
     const DATABASE_ID = '6af97136002adb30739e';
@@ -387,7 +407,7 @@
     passInput.addEventListener('keydown', e => { if (e.key === 'Enter') doLogin(); });
 
     function doLogin() {
-      if (passInput.value === PASSWORD) {
+      if (passInput.value === getPassword()) {
         sessionStorage.setItem('todo_auth', '1');
         loginError.textContent = '';
         loginScreen.style.display = 'none';
@@ -708,6 +728,48 @@
     });
 
     clearBtn.addEventListener('click', clearDone);
+
+    // Change password
+    const passModal = document.getElementById('passModal');
+    const changePassBtn = document.getElementById('changePassBtn');
+    const savePassBtn = document.getElementById('savePassBtn');
+    const cancelPassBtn = document.getElementById('cancelPassBtn');
+    const passModalError = document.getElementById('passModalError');
+
+    changePassBtn.addEventListener('click', () => {
+      document.getElementById('oldPass').value = '';
+      document.getElementById('newPass').value = '';
+      document.getElementById('newPass2').value = '';
+      passModalError.textContent = '';
+      passModal.style.display = 'flex';
+    });
+
+    cancelPassBtn.addEventListener('click', () => {
+      passModal.style.display = 'none';
+    });
+
+    savePassBtn.addEventListener('click', () => {
+      const oldP = document.getElementById('oldPass').value;
+      const newP = document.getElementById('newPass').value;
+      const newP2 = document.getElementById('newPass2').value;
+
+      if (oldP !== getPassword()) {
+        passModalError.textContent = 'رمز فعلی اشتباه است';
+        return;
+      }
+      if (!newP || newP.length < 3) {
+        passModalError.textContent = 'رمز جدید حداقل ۳ کاراکتر باشد';
+        return;
+      }
+      if (newP !== newP2) {
+        passModalError.textContent = 'رمز جدید و تکرار آن یکسان نیست';
+        return;
+      }
+      setPassword(newP);
+      passModal.style.display = 'none';
+      setStatus('رمز عبور با موفقیت تغییر کرد ✓', 'success');
+      setTimeout(() => setStatus(''), 2500);
+    });
 
     checkAuth();
   </script>
