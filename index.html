@@ -2,258 +2,163 @@
 <html lang="fa" dir="rtl">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#F5C518">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="کارهای روزانه">
+  <meta name="mobile-web-app-capable" content="yes">
+  <link rel="manifest" href="manifest.json">
+  <link rel="apple-touch-icon" href="icon.svg">
+  <link rel="icon" type="image/svg+xml" href="icon.svg">
   <title>لیست کارهای روزانه صوتی</title>
   <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet">
   <style>
     :root {
-      --primary: #F5A623;
-      --primary-dark: #D4890A;
-      --primary-light: #FFD54F;
-      --accent: #FFC107;
-      --success: #43A047;
-      --danger: #E53935;
-      --bg: #F7F5F0;
-      --bg2: #EFEBE3;
-      --card: #FFFFFF;
-      --text: #1A1A1A;
-      --text2: #3D3D3D;
-      --muted: #7A7568;
-      --border: #E0D9CC;
-      --shadow: rgba(0, 0, 0, 0.08);
-      --input-bg: #FAF8F4;
+      --primary: #F5A623; --primary-dark: #D4890A; --primary-light: #FFD54F;
+      --accent: #FFC107; --success: #43A047; --danger: #E53935;
+      --bg: #F7F5F0; --bg2: #EFEBE3; --card: #FFFFFF;
+      --text: #1A1A1A; --text2: #3D3D3D; --muted: #7A7568;
+      --border: #E0D9CC; --shadow: rgba(0,0,0,0.08); --input-bg: #FAF8F4;
     }
-
     [data-theme="dark"] {
-      --primary: #F5C518;
-      --primary-dark: #D4A017;
-      --primary-light: #FFE082;
-      --accent: #FFC107;
-      --success: #66BB6A;
-      --danger: #EF5350;
-      --bg: #0D0D0D;
-      --bg2: #141414;
-      --card: #1C1C1C;
-      --text: #F5F5F5;
-      --text2: #E0E0E0;
-      --muted: #9E9E9E;
-      --border: #2A2A2A;
-      --shadow: rgba(0, 0, 0, 0.5);
-      --input-bg: #242424;
+      --primary: #F5C518; --primary-dark: #D4A017; --primary-light: #FFE082;
+      --accent: #FFC107; --success: #66BB6A; --danger: #EF5350;
+      --bg: #0D0D0D; --bg2: #141414; --card: #1C1C1C;
+      --text: #F5F5F5; --text2: #E0E0E0; --muted: #9E9E9E;
+      --border: #2A2A2A; --shadow: rgba(0,0,0,0.5); --input-bg: #242424;
     }
-
     * { box-sizing: border-box; margin: 0; padding: 0; }
-
     body {
       font-family: Vazirmatn, Tahoma, sans-serif;
       background: linear-gradient(160deg, var(--bg) 0%, var(--bg2) 100%);
-      min-height: 100vh;
-      color: var(--text);
-      padding: 16px;
+      min-height: 100vh; color: var(--text); padding: 16px;
       transition: background 0.3s, color 0.3s;
     }
-
     .container { max-width: 720px; margin: 0 auto; }
-
-    #loginScreen {
-      display: flex; align-items: center; justify-content: center;
-      min-height: 90vh;
-    }
+    #loginScreen { display: flex; align-items: center; justify-content: center; min-height: 90vh; }
     .login-card {
-      background: var(--card);
-      border-radius: 24px;
-      padding: 40px 32px;
-      width: 100%; max-width: 380px;
-      box-shadow: 0 12px 40px var(--shadow);
-      text-align: center;
+      background: var(--card); border-radius: 24px; padding: 40px 32px;
+      width: 100%; max-width: 380px; box-shadow: 0 12px 40px var(--shadow); text-align: center;
     }
-    .login-card h1 {
-      font-size: 1.5rem; color: var(--primary); margin-bottom: 8px;
-    }
+    .login-card h1 { font-size: 1.5rem; color: var(--primary); margin-bottom: 8px; }
     .login-card p { color: var(--muted); font-size: 0.9rem; margin-bottom: 28px; }
     .login-card input {
-      width: 100%; padding: 14px 16px;
-      border: 2px solid var(--border); border-radius: 12px;
-      font-family: Vazirmatn, sans-serif; font-size: 1rem;
-      background: var(--input-bg); color: var(--text); outline: none;
-      margin-bottom: 16px; transition: border-color 0.2s;
+      width: 100%; padding: 14px 16px; border: 2px solid var(--border); border-radius: 12px;
+      font-family: Vazirmatn, sans-serif; font-size: 1rem; background: var(--input-bg);
+      color: var(--text); outline: none; margin-bottom: 16px;
     }
     .login-card input:focus { border-color: var(--primary); }
     .login-card button {
-      width: 100%; padding: 14px;
-      background: var(--primary); color: #111; border: none;
-      border-radius: 12px; font-family: Vazirmatn, sans-serif;
-      font-size: 1.05rem; font-weight: 600; cursor: pointer;
-      transition: background 0.2s;
+      width: 100%; padding: 14px; background: var(--primary); color: #111; border: none;
+      border-radius: 12px; font-family: Vazirmatn, sans-serif; font-size: 1.05rem;
+      font-weight: 600; cursor: pointer;
     }
     .login-card button:hover { background: var(--primary-dark); color: #fff; }
     .login-error { color: var(--danger); font-size: 0.9rem; margin-top: 12px; min-height: 20px; }
-
-    header {
-      display: flex; align-items: center; justify-content: space-between;
-      margin-bottom: 20px; flex-wrap: wrap; gap: 12px;
-    }
-    .header-title h1 {
-      font-size: 1.55rem; color: var(--primary); margin-bottom: 2px;
-    }
+    header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; flex-wrap: wrap; gap: 12px; }
+    .header-title h1 { font-size: 1.55rem; color: var(--primary); margin-bottom: 2px; }
     .header-title p { color: var(--muted); font-size: 0.85rem; }
     .header-actions { display: flex; gap: 10px; align-items: center; }
-
     .theme-btn, .logout-btn {
-      background: var(--card); border: 2px solid var(--border);
-      border-radius: 12px; padding: 10px 14px; cursor: pointer;
-      font-size: 1.1rem; color: var(--text); transition: all 0.2s;
+      background: var(--card); border: 2px solid var(--border); border-radius: 12px;
+      padding: 10px 14px; cursor: pointer; font-size: 1.1rem; color: var(--text);
       font-family: Vazirmatn, sans-serif;
     }
-    .theme-btn:hover, .logout-btn:hover {
-      border-color: var(--primary); background: var(--primary); color: #111;
-    }
-
+    .theme-btn:hover, .logout-btn:hover { border-color: var(--primary); background: var(--primary); color: #111; }
     .tabs {
-      display: flex; gap: 8px; margin-bottom: 18px;
-      background: var(--card); padding: 6px; border-radius: 16px;
-      box-shadow: 0 4px 16px var(--shadow);
+      display: flex; gap: 8px; margin-bottom: 18px; background: var(--card);
+      padding: 6px; border-radius: 16px; box-shadow: 0 4px 16px var(--shadow);
     }
     .tab {
-      flex: 1; padding: 12px 6px; border: none; border-radius: 12px;
-      background: transparent; font-family: Vazirmatn, sans-serif;
-      font-size: 0.92rem; font-weight: 600; color: var(--muted);
-      cursor: pointer; transition: all 0.2s;
+      flex: 1; padding: 12px 6px; border: none; border-radius: 12px; background: transparent;
+      font-family: Vazirmatn, sans-serif; font-size: 0.92rem; font-weight: 600;
+      color: var(--muted); cursor: pointer;
     }
     .tab:hover { background: var(--bg); color: var(--primary); }
-    .tab.active {
-      background: var(--primary); color: #111;
-      box-shadow: 0 4px 12px rgba(245,197,24,0.35);
-    }
-    .tab .count {
-      display: inline-block; background: rgba(0,0,0,0.15);
-      font-size: 0.72rem; padding: 1px 7px; border-radius: 10px; margin-right: 3px;
-    }
-    .tab:not(.active) .count {
-      background: var(--bg2); color: var(--primary);
-    }
-
-    .card {
-      background: var(--card); border-radius: 20px;
-      box-shadow: 0 6px 24px var(--shadow);
-      padding: 22px; margin-bottom: 18px;
-      transition: background 0.3s;
-    }
-
+    .tab.active { background: var(--primary); color: #111; box-shadow: 0 4px 12px rgba(245,197,24,0.35); }
+    .tab .count { display: inline-block; background: rgba(0,0,0,0.15); font-size: 0.72rem; padding: 1px 7px; border-radius: 10px; margin-right: 3px; }
+    .tab:not(.active) .count { background: var(--bg2); color: var(--primary); }
+    .card { background: var(--card); border-radius: 20px; box-shadow: 0 6px 24px var(--shadow); padding: 22px; margin-bottom: 18px; }
     .voice-btn {
-      display: flex; align-items: center; justify-content: center; gap: 10px;
-      width: 100%; background: var(--primary); color: #111; border: none;
-      border-radius: 14px; padding: 16px; font-size: 1.05rem; font-weight: 600;
-      font-family: Vazirmatn, sans-serif; cursor: pointer; transition: all 0.2s;
+      display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%;
+      background: var(--primary); color: #111; border: none; border-radius: 14px; padding: 16px;
+      font-size: 1.05rem; font-weight: 600; font-family: Vazirmatn, sans-serif; cursor: pointer;
     }
-    .voice-btn:hover { background: var(--primary-dark); color: #fff; transform: translateY(-1px); }
+    .voice-btn:hover { background: var(--primary-dark); color: #fff; }
     .voice-btn.listening { background: var(--danger); color: #fff; animation: pulse 1.4s infinite; }
     @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.7} }
     .voice-btn svg { width: 22px; height: 22px; }
-
     .manual-input { display: flex; gap: 10px; margin-top: 12px; }
     .manual-input input[type="text"] {
-      flex: 1; padding: 12px 14px; border: 2px solid var(--border);
-      border-radius: 12px; font-size: 1rem; font-family: Vazirmatn, sans-serif;
-      background: var(--input-bg); color: var(--text); outline: none;
+      flex: 1; padding: 12px 14px; border: 2px solid var(--border); border-radius: 12px;
+      font-size: 1rem; font-family: Vazirmatn, sans-serif; background: var(--input-bg); color: var(--text); outline: none;
     }
     .manual-input input:focus { border-color: var(--primary); }
     .manual-input button {
       background: var(--success); color: white; border: none; border-radius: 12px;
-      padding: 0 20px; font-size: 0.95rem; font-weight: 600;
-      font-family: Vazirmatn, sans-serif; cursor: pointer;
+      padding: 0 20px; font-size: 0.95rem; font-weight: 600; font-family: Vazirmatn, sans-serif; cursor: pointer;
     }
-
-    .due-date-row {
-      display: flex; align-items: center; gap: 10px; margin-top: 12px;
-    }
+    .due-date-row { display: flex; align-items: center; gap: 10px; margin-top: 12px; }
     .due-date-row label { font-size: 0.9rem; color: var(--muted); white-space: nowrap; }
     .due-date-row input[type="date"] {
       padding: 8px 12px; border: 2px solid var(--border); border-radius: 10px;
       font-family: Vazirmatn, sans-serif; background: var(--input-bg); color: var(--text); outline: none;
     }
-
     .status { text-align: center; font-size: 0.88rem; color: var(--muted); min-height: 22px; margin-top: 10px; }
     .status.error { color: var(--danger); }
     .status.success { color: var(--success); }
-
     .tasks-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
     .tasks-header h2 { font-size: 1.15rem; color: var(--text); }
-    .task-count {
-      background: var(--primary); color: #111; font-size: 0.82rem;
-      padding: 4px 12px; border-radius: 20px; font-weight: 600;
-    }
-
+    .task-count { background: var(--primary); color: #111; font-size: 0.82rem; padding: 4px 12px; border-radius: 20px; font-weight: 600; }
     .task-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
     .task-item {
       background: var(--input-bg); border: 1px solid var(--border); border-radius: 14px;
-      padding: 14px; display: flex; flex-direction: column; gap: 8px; transition: all 0.2s;
+      padding: 14px; display: flex; flex-direction: column; gap: 8px;
     }
-    .task-item:hover { border-color: var(--primary-light); box-shadow: 0 2px 10px var(--shadow); }
+    .task-item:hover { border-color: var(--primary-light); }
     .task-item.done { opacity: 0.55; }
     .task-item.done .task-text { text-decoration: line-through; color: var(--muted); }
-
     .task-top { display: flex; align-items: flex-start; gap: 10px; }
-    .task-top input[type="checkbox"] {
-      width: 20px; height: 20px; margin-top: 2px; accent-color: var(--success); cursor: pointer;
-    }
+    .task-top input[type="checkbox"] { width: 20px; height: 20px; margin-top: 2px; accent-color: var(--success); cursor: pointer; }
     .task-text { flex: 1; font-size: 1rem; line-height: 1.5; word-break: break-word; }
-
     .task-actions { display: flex; gap: 4px; }
-    .task-actions button {
-      background: none; border: none; cursor: pointer; padding: 5px; border-radius: 8px;
-      color: var(--muted); transition: all 0.15s;
-    }
+    .task-actions button { background: none; border: none; cursor: pointer; padding: 5px; border-radius: 8px; color: var(--muted); }
     .task-actions button:hover { background: var(--bg); color: var(--primary); }
-    .task-actions button.delete-btn:hover { background: #FFEBEE; color: var(--danger); }
-
-    .task-meta {
-      display: flex; flex-wrap: wrap; gap: 10px; font-size: 0.8rem;
-      color: var(--muted); padding-right: 30px;
-    }
+    .task-actions button.delete-btn:hover { color: var(--danger); }
+    .task-meta { display: flex; flex-wrap: wrap; gap: 10px; font-size: 0.8rem; color: var(--muted); padding-right: 30px; }
     .due-date { color: var(--primary); font-weight: 500; }
     .due-date.overdue { color: var(--danger); font-weight: 600; }
-
     .empty-state { text-align: center; padding: 36px 16px; color: var(--muted); }
     .empty-state svg { width: 56px; height: 56px; margin-bottom: 10px; opacity: 0.35; }
-
     .clear-btn {
       background: none; border: 1px solid var(--border); color: var(--muted);
       padding: 10px; border-radius: 10px; font-size: 0.88rem; cursor: pointer;
       margin-top: 14px; width: 100%; font-family: Vazirmatn, sans-serif;
     }
-    .clear-btn:hover { background: #FFEBEE; border-color: #EF9A9A; color: var(--danger); }
-
+    .clear-btn:hover { color: var(--danger); border-color: var(--danger); }
     .loading { text-align: center; padding: 20px; color: var(--muted); }
-
     .edit-form { display: flex; flex-direction: column; gap: 10px; width: 100%; }
     .edit-form input[type="text"] {
-      width: 100%; padding: 10px 12px; border: 2px solid var(--primary);
-      border-radius: 10px; font-size: 1rem; font-family: Vazirmatn, sans-serif;
-      background: var(--input-bg); color: var(--text); outline: none;
+      width: 100%; padding: 10px 12px; border: 2px solid var(--primary); border-radius: 10px;
+      font-size: 1rem; font-family: Vazirmatn, sans-serif; background: var(--input-bg); color: var(--text); outline: none;
     }
     .edit-form .edit-actions { display: flex; gap: 8px; justify-content: flex-end; }
     .edit-form .edit-actions button {
-      padding: 7px 16px; border: none; border-radius: 10px;
-      font-size: 0.9rem; font-weight: 600; cursor: pointer; font-family: Vazirmatn, sans-serif;
+      padding: 7px 16px; border: none; border-radius: 10px; font-size: 0.9rem;
+      font-weight: 600; cursor: pointer; font-family: Vazirmatn, sans-serif;
     }
     .edit-form .save-btn { background: var(--success); color: white; }
     .edit-form .cancel-btn { background: var(--border); color: var(--text); }
-    .edit-form .due-edit {
-      display: flex; align-items: center; gap: 8px; font-size: 0.88rem; color: var(--muted);
-    }
+    .edit-form .due-edit { display: flex; align-items: center; gap: 8px; font-size: 0.88rem; color: var(--muted); }
     .edit-form .due-edit input {
       padding: 6px 10px; border: 1px solid var(--border); border-radius: 8px;
       font-family: Vazirmatn, sans-serif; background: var(--input-bg); color: var(--text);
     }
-
     #app { display: none; }
-
     @media (max-width: 500px) {
-      body { padding: 10px; }
-      .card { padding: 16px; }
-      header h1 { font-size: 1.3rem; }
-      .tab { font-size: 0.82rem; padding: 10px 4px; }
+      body { padding: 10px; } .card { padding: 16px; }
+      header h1 { font-size: 1.3rem; } .tab { font-size: 0.82rem; padding: 10px 4px; }
       .login-card { padding: 28px 20px; }
     }
   </style>
@@ -293,8 +198,7 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/>
           <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
-          <line x1="12" y1="19" x2="12" y2="23"/>
-          <line x1="8" y1="23" x2="16" y2="23"/>
+          <line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/>
         </svg>
         <span id="voiceBtnText">ضبط صدا (بگو کارتو)</span>
       </button>
@@ -319,8 +223,7 @@
       <div class="empty-state" id="emptyState" style="display:none;">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
           <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2"/>
-          <rect x="9" y="3" width="6" height="4" rx="1"/>
-          <path d="M9 12h6M9 16h6"/>
+          <rect x="9" y="3" width="6" height="4" rx="1"/><path d="M9 12h6M9 16h6"/>
         </svg>
         <p>هنوز کاری در این بخش ثبت نشده</p>
       </div>
@@ -342,22 +245,15 @@
   </div>
 
   <script>
-    function getPassword() {
-      return localStorage.getItem('todo_password') || '1234';
-    }
-    function setPassword(p) {
-      localStorage.setItem('todo_password', p);
-    }
+    function getPassword() { return localStorage.getItem('todo_password') || '1234'; }
+    function setPassword(p) { localStorage.setItem('todo_password', p); }
 
     const ENDPOINT = 'https://fra.cloud.appwrite.io/v1';
     const PROJECT_ID = '6af9708b001f463beb0c';
     const DATABASE_ID = '6af97136002adb30739e';
     const TABLE_ID = '6af97156001f09100a1c';
     const BASE = `${ENDPOINT}/tablesdb/${DATABASE_ID}/tables/${TABLE_ID}/rows`;
-
-    function headers() {
-      return { 'Content-Type': 'application/json', 'X-Appwrite-Project': PROJECT_ID };
-    }
+    function headers() { return { 'Content-Type': 'application/json', 'X-Appwrite-Project': PROJECT_ID }; }
 
     const CATEGORIES = {
       personal: { title: 'کارهای شخصی' },
@@ -365,11 +261,7 @@
       company:  { title: 'کارهای شرکت' }
     };
 
-    let tasks = [];
-    let currentCategory = 'personal';
-    let recognition = null;
-    let isListening = false;
-    let editingId = null;
+    let tasks = [], currentCategory = 'personal', recognition = null, isListening = false, editingId = null;
 
     const loginScreen = document.getElementById('loginScreen');
     const appEl = document.getElementById('app');
@@ -391,205 +283,115 @@
     const loadingEl = document.getElementById('loading');
     const sheetTitle = document.getElementById('sheetTitle');
     const tabs = document.getElementById('tabs');
-
     const today = new Date().toISOString().split('T')[0];
     dueDateInput.value = today;
 
     function checkAuth() {
       if (sessionStorage.getItem('todo_auth') === '1') {
-        loginScreen.style.display = 'none';
-        appEl.style.display = 'block';
-        loadTasks();
+        loginScreen.style.display = 'none'; appEl.style.display = 'block'; loadTasks();
       }
     }
-
     loginBtn.addEventListener('click', doLogin);
     passInput.addEventListener('keydown', e => { if (e.key === 'Enter') doLogin(); });
-
     function doLogin() {
       if (passInput.value === getPassword()) {
         sessionStorage.setItem('todo_auth', '1');
         loginError.textContent = '';
-        loginScreen.style.display = 'none';
-        appEl.style.display = 'block';
-        loadTasks();
+        loginScreen.style.display = 'none'; appEl.style.display = 'block'; loadTasks();
       } else {
         loginError.textContent = 'رمز عبور اشتباه است';
-        passInput.value = '';
-        passInput.focus();
+        passInput.value = ''; passInput.focus();
       }
     }
-
-    logoutBtn.addEventListener('click', () => {
-      sessionStorage.removeItem('todo_auth');
-      location.reload();
-    });
+    logoutBtn.addEventListener('click', () => { sessionStorage.removeItem('todo_auth'); location.reload(); });
 
     function applyTheme(theme) {
       document.documentElement.setAttribute('data-theme', theme);
       themeBtn.textContent = theme === 'dark' ? '☀️' : '🌙';
       localStorage.setItem('todo_theme', theme);
     }
-
-    const savedTheme = localStorage.getItem('todo_theme') || 'dark';
-    applyTheme(savedTheme);
-
+    applyTheme(localStorage.getItem('todo_theme') || 'dark');
     themeBtn.addEventListener('click', () => {
-      const next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-      applyTheme(next);
+      applyTheme(document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
     });
 
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
     if (SpeechRecognition) {
       recognition = new SpeechRecognition();
-      recognition.lang = 'fa-IR';
-      recognition.continuous = false;
-      recognition.interimResults = false;
-      recognition.maxAlternatives = 1;
-
+      recognition.lang = 'fa-IR'; recognition.continuous = false;
+      recognition.interimResults = false; recognition.maxAlternatives = 1;
       recognition.onstart = () => {
-        isListening = true;
-        voiceBtn.classList.add('listening');
-        voiceBtnText.textContent = 'در حال گوش دادن...';
-        setStatus('گوش می‌دهم...', '');
+        isListening = true; voiceBtn.classList.add('listening');
+        voiceBtnText.textContent = 'در حال گوش دادن...'; setStatus('گوش می‌دهم...', '');
       };
       recognition.onresult = (event) => {
-        const transcript = event.results[0][0].transcript.trim();
-        if (transcript) {
-          taskInput.value = transcript;
-          setStatus(`شنیده شد: «${transcript}»`, 'success');
-          setTimeout(() => addTask(), 500);
-        }
+        const t = event.results[0][0].transcript.trim();
+        if (t) { taskInput.value = t; setStatus(`شنیده شد: «${t}»`, 'success'); setTimeout(() => addTask(), 500); }
       };
       recognition.onerror = (event) => {
-        isListening = false;
-        voiceBtn.classList.remove('listening');
-        voiceBtnText.textContent = 'ضبط صداا (بگو کارتو)';
+        isListening = false; voiceBtn.classList.remove('listening');
+        voiceBtnText.textContent = 'ضبط صدا (بگو کارتو)';
         if (event.error === 'no-speech') setStatus('صدایی شنیده نشد.', 'error');
         else if (event.error === 'not-allowed') setStatus('دسترسی میکروفون داده نشده.', 'error');
         else setStatus('خطا در تشخیص صدا', 'error');
       };
       recognition.onend = () => {
-        isListening = false;
-        voiceBtn.classList.remove('listening');
+        isListening = false; voiceBtn.classList.remove('listening');
         voiceBtnText.textContent = 'ضبط صدا (بگو کارتو)';
       };
-    } else {
-      voiceBtn.disabled = true;
-      voiceBtnText.textContent = 'مرورگر پشتیبانی نمی‌کند';
-    }
+    } else { voiceBtn.disabled = true; voiceBtnText.textContent = 'مرورگر پشتیبانی نمی‌کند'; }
 
-    function setStatus(msg, type = '') {
-      statusEl.textContent = msg;
-      statusEl.className = 'status ' + type;
+    function setStatus(msg, type = '') { statusEl.textContent = msg; statusEl.className = 'status ' + type; }
+    function formatDate(d) {
+      if (!d) return '—';
+      return new Date(d + 'T00:00:00').toLocaleDateString('fa-IR', { year: 'numeric', month: 'long', day: 'numeric' });
     }
-
-    function formatDate(dateStr) {
-      if (!dateStr) return '—';
-      return new Date(dateStr + 'T00:00:00').toLocaleDateString('fa-IR', { year: 'numeric', month: 'long', day: 'numeric' });
-    }
-
     function formatDateTime(iso) {
       if (!iso) return '—';
       return new Date(iso).toLocaleDateString('fa-IR', { year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
     }
-
-    function isOverdue(dueDate) {
-      if (!dueDate) return false;
+    function isOverdue(d) {
+      if (!d) return false;
       const t = new Date(); t.setHours(0,0,0,0);
-      return new Date(dueDate + 'T00:00:00') < t;
+      return new Date(d + 'T00:00:00') < t;
     }
-
-    function toPersianNum(n) {
-      return String(n).replace(/\d/g, d => '۰۱۲۳۴۵۶۷۸۹'[d]);
-    }
-
-    function getFilteredTasks() {
-      return tasks.filter(t => (t.category || 'personal') === currentCategory);
-    }
-
+    function toPersianNum(n) { return String(n).replace(/\d/g, d => '۰۱۲۳۴۵۶۷۸۹'[d]); }
+    function getFilteredTasks() { return tasks.filter(t => (t.category || 'personal') === currentCategory); }
     function updateTabCounts() {
-      ['personal', 'building', 'company'].forEach(cat => {
-        const count = tasks.filter(t => (t.category || 'personal') === cat && !t.done).length;
+      ['personal','building','company'].forEach(cat => {
+        const c = tasks.filter(t => (t.category || 'personal') === cat && !t.done).length;
         const el = document.getElementById('count-' + cat);
-        if (el) el.textContent = toPersianNum(count);
+        if (el) el.textContent = toPersianNum(c);
       });
     }
-
-    function escapeHtml(text) {
-      const div = document.createElement('div');
-      div.textContent = text;
-      return div.innerHTML;
-    }
+    function escapeHtml(text) { const d = document.createElement('div'); d.textContent = text; return d.innerHTML; }
 
     function renderTasks() {
-      loadingEl.style.display = 'none';
-      taskList.style.display = 'flex';
-
+      loadingEl.style.display = 'none'; taskList.style.display = 'flex';
       const filtered = getFilteredTasks();
       taskList.innerHTML = '';
-
-      const active = filtered.filter(t => !t.done).length;
-      const total = filtered.length;
-
+      const active = filtered.filter(t => !t.done).length, total = filtered.length;
       taskCount.textContent = total === 0 ? '۰ کار' : `${toPersianNum(active)} از ${toPersianNum(total)} باقی‌مانده`;
       sheetTitle.textContent = CATEGORIES[currentCategory].title;
       emptyState.style.display = total === 0 ? 'block' : 'none';
       clearBtn.style.display = filtered.some(t => t.done) ? 'block' : 'none';
       updateTabCounts();
-
       const sorted = [...filtered].sort((a, b) => {
         if (a.done !== b.done) return a.done ? 1 : -1;
         if (a.dueDate && b.dueDate) return a.dueDate.localeCompare(b.dueDate);
-        if (a.dueDate) return -1;
-        if (b.dueDate) return 1;
+        if (a.dueDate) return -1; if (b.dueDate) return 1;
         return new Date(b.createdAt || 0) - new Date(a.createdAt || 0);
       });
-
       sorted.forEach(task => {
         const id = task.$id || task.id;
         const li = document.createElement('li');
         li.className = 'task-item' + (task.done ? ' done' : '');
         li.dataset.id = id;
-
         if (editingId === id) {
-          li.innerHTML = `
-            <div class="edit-form">
-              <input type="text" class="edit-text" value="${escapeHtml(task.text)}" />
-              <div class="due-edit">
-                <label>تاریخ انجام:</label>
-                <input type="date" class="edit-due" value="${task.dueDate || today}" />
-              </div>
-              <div class="edit-actions">
-                <button class="cancel-btn" data-action="cancel-edit">انصراف</button>
-                <button class="save-btn" data-action="save-edit">ذخیره</button>
-              </div>
-            </div>`;
+          li.innerHTML = `<div class="edit-form"><input type="text" class="edit-text" value="${escapeHtml(task.text)}" /><div class="due-edit"><label>تاریخ انجام:</label><input type="date" class="edit-due" value="${task.dueDate || today}" /></div><div class="edit-actions"><button class="cancel-btn" data-action="cancel-edit">انصراف</button><button class="save-btn" data-action="save-edit">ذخیره</button></div></div>`;
         } else {
-          const overdueClass = !task.done && isOverdue(task.dueDate) ? ' overdue' : '';
-          li.innerHTML = `
-            <div class="task-top">
-              <input type="checkbox" ${task.done ? 'checked' : ''} data-action="toggle">
-              <span class="task-text">${escapeHtml(task.text)}</span>
-              <div class="task-actions">
-                <button data-action="edit" title="ویرایش">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/>
-                    <path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/>
-                  </svg>
-                </button>
-                <button class="delete-btn" data-action="delete" title="حذف">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <polyline points="3 6 5 6 21 6"/>
-                    <path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2"/>
-                  </svg>
-                </button>
-              </div>
-            </div>
-            <div class="task-meta">
-              <span>📅 ${formatDateTime(task.createdAt)}</span>
-              <span class="due-date${overdueClass}">⏰ ${formatDate(task.dueDate)}</span>
-            </div>`;
+          const oc = !task.done && isOverdue(task.dueDate) ? ' overdue' : '';
+          li.innerHTML = `<div class="task-top"><input type="checkbox" ${task.done ? 'checked' : ''} data-action="toggle"><span class="task-text">${escapeHtml(task.text)}</span><div class="task-actions"><button data-action="edit" title="ویرایش"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="delete-btn" data-action="delete" title="حذف"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2"/></svg></button></div></div><div class="task-meta"><span>📅 ${formatDateTime(task.createdAt)}</span><span class="due-date${oc}">⏰ ${formatDate(task.dueDate)}</span></div>`;
         }
         taskList.appendChild(li);
       });
@@ -603,12 +405,9 @@
         tasks = data.rows || data.documents || data.data || [];
         renderTasks();
       } catch (err) {
-        console.error(err);
-        loadingEl.textContent = 'خطا در اتصال';
-        setStatus('خطا در بارگذاری', 'error');
+        console.error(err); loadingEl.textContent = 'خطا در اتصال'; setStatus('خطا در بارگذاری', 'error');
       }
     }
-
     async function addTask() {
       const text = taskInput.value.trim();
       if (!text) { setStatus('متنی وارد نشده!', 'error'); return; }
@@ -616,160 +415,96 @@
         setStatus('در حال ذخیره...', '');
         const rowId = 'id_' + Date.now() + '_' + Math.random().toString(36).slice(2, 9);
         const res = await fetch(BASE, {
-          method: 'POST',
-          headers: headers(),
-          body: JSON.stringify({
-            rowId,
-            data: {
-              text, done: false, category: currentCategory,
-              dueDate: dueDateInput.value || today,
-              createdAt: new Date().toISOString()
-            }
-          })
+          method: 'POST', headers: headers(),
+          body: JSON.stringify({ rowId, data: { text, done: false, category: currentCategory, dueDate: dueDateInput.value || today, createdAt: new Date().toISOString() } })
         });
         if (!res.ok) throw new Error(await res.text());
-        taskInput.value = '';
-        dueDateInput.value = today;
-        setStatus('کار اضافه شد ✓', 'success');
-        setTimeout(() => setStatus(''), 2000);
+        taskInput.value = ''; dueDateInput.value = today;
+        setStatus('کار اضافه شد ✓', 'success'); setTimeout(() => setStatus(''), 2000);
         await loadTasks();
-      } catch (err) {
-        console.error(err);
-        setStatus('خطا در ذخیره', 'error');
-      }
+      } catch (err) { console.error(err); setStatus('خطا در ذخیره', 'error'); }
     }
-
     async function toggleTask(id) {
-      const task = tasks.find(t => (t.$id || t.id) === id);
-      if (!task) return;
+      const task = tasks.find(t => (t.$id || t.id) === id); if (!task) return;
       try {
-        await fetch(`${BASE}/${id}`, {
-          method: 'PATCH', headers: headers(),
-          body: JSON.stringify({ data: { done: !task.done } })
-        });
+        await fetch(`${BASE}/${id}`, { method: 'PATCH', headers: headers(), body: JSON.stringify({ data: { done: !task.done } }) });
         await loadTasks();
-      } catch (err) { setStatus('خطا در به‌روزرسانی', 'error'); }
+      } catch (e) { setStatus('خطا در به‌روزرسانی', 'error'); }
     }
-
     async function deleteTask(id) {
       try {
         await fetch(`${BASE}/${id}`, { method: 'DELETE', headers: headers() });
-        setStatus('حذف شد', 'success');
-        setTimeout(() => setStatus(''), 1500);
-        await loadTasks();
-      } catch (err) { setStatus('خطا در حذف', 'error'); }
+        setStatus('حذف شد', 'success'); setTimeout(() => setStatus(''), 1500); await loadTasks();
+      } catch (e) { setStatus('خطا در حذف', 'error'); }
     }
-
     async function saveEdit(id, li) {
       const newText = li.querySelector('.edit-text').value.trim();
       const newDue = li.querySelector('.edit-due').value || today;
       if (!newText) { setStatus('متن خالی مجاز نیست', 'error'); return; }
       try {
-        await fetch(`${BASE}/${id}`, {
-          method: 'PATCH', headers: headers(),
-          body: JSON.stringify({ data: { text: newText, dueDate: newDue } })
-        });
-        editingId = null;
-        setStatus('ذخیره شد ✓', 'success');
-        setTimeout(() => setStatus(''), 1500);
-        await loadTasks();
-      } catch (err) { setStatus('خطا در ویرایش', 'error'); }
+        await fetch(`${BASE}/${id}`, { method: 'PATCH', headers: headers(), body: JSON.stringify({ data: { text: newText, dueDate: newDue } }) });
+        editingId = null; setStatus('ذخیره شد ✓', 'success'); setTimeout(() => setStatus(''), 1500); await loadTasks();
+      } catch (e) { setStatus('خطا در ویرایش', 'error'); }
     }
-
     async function clearDone() {
       try {
-        for (const t of getFilteredTasks().filter(t => t.done)) {
+        for (const t of getFilteredTasks().filter(t => t.done))
           await fetch(`${BASE}/${t.$id || t.id}`, { method: 'DELETE', headers: headers() });
-        }
-        setStatus('پاک شدند', 'success');
-        setTimeout(() => setStatus(''), 1500);
-        await loadTasks();
-      } catch (err) { setStatus('خطا', 'error'); }
+        setStatus('پاک شدند', 'success'); setTimeout(() => setStatus(''), 1500); await loadTasks();
+      } catch (e) { setStatus('خطا', 'error'); }
     }
 
-    voiceBtn.addEventListener('click', () => {
-      if (!recognition) return;
-      isListening ? recognition.stop() : recognition.start();
-    });
+    voiceBtn.addEventListener('click', () => { if (!recognition) return; isListening ? recognition.stop() : recognition.start(); });
     addBtn.addEventListener('click', addTask);
     taskInput.addEventListener('keydown', e => { if (e.key === 'Enter') addTask(); });
-
     tabs.addEventListener('click', (e) => {
-      const btn = e.target.closest('.tab');
-      if (!btn) return;
-      currentCategory = btn.dataset.cat;
-      editingId = null;
+      const btn = e.target.closest('.tab'); if (!btn) return;
+      currentCategory = btn.dataset.cat; editingId = null;
       document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-      btn.classList.add('active');
-      renderTasks();
+      btn.classList.add('active'); renderTasks();
     });
-
     taskList.addEventListener('click', (e) => {
-      const li = e.target.closest('.task-item');
-      if (!li) return;
+      const li = e.target.closest('.task-item'); if (!li) return;
       const id = li.dataset.id;
       const action = e.target.closest('[data-action]')?.dataset.action;
       if (action === 'toggle' || e.target.type === 'checkbox') toggleTask(id);
       else if (action === 'delete') deleteTask(id);
-      else if (action === 'edit') {
-        editingId = id; renderTasks();
-        setTimeout(() => document.querySelector(`[data-id="${id}"] .edit-text`)?.focus(), 50);
-      }
+      else if (action === 'edit') { editingId = id; renderTasks(); setTimeout(() => document.querySelector(`[data-id="${id}"] .edit-text`)?.focus(), 50); }
       else if (action === 'cancel-edit') { editingId = null; renderTasks(); }
       else if (action === 'save-edit') saveEdit(id, li);
     });
-
     taskList.addEventListener('keydown', (e) => {
       if (e.key === 'Enter' && e.target.classList.contains('edit-text')) {
-        const li = e.target.closest('.task-item');
-        if (li) saveEdit(li.dataset.id, li);
+        const li = e.target.closest('.task-item'); if (li) saveEdit(li.dataset.id, li);
       }
       if (e.key === 'Escape' && editingId) { editingId = null; renderTasks(); }
     });
-
     clearBtn.addEventListener('click', clearDone);
 
     const passModal = document.getElementById('passModal');
-    const changePassBtn = document.getElementById('changePassBtn');
-    const savePassBtn = document.getElementById('savePassBtn');
-    const cancelPassBtn = document.getElementById('cancelPassBtn');
-    const passModalError = document.getElementById('passModalError');
-
-    changePassBtn.addEventListener('click', () => {
+    document.getElementById('changePassBtn').addEventListener('click', () => {
       document.getElementById('oldPass').value = '';
       document.getElementById('newPass').value = '';
       document.getElementById('newPass2').value = '';
-      passModalError.textContent = '';
+      document.getElementById('passModalError').textContent = '';
       passModal.style.display = 'flex';
     });
-
-    cancelPassBtn.addEventListener('click', () => {
-      passModal.style.display = 'none';
-    });
-
-    savePassBtn.addEventListener('click', () => {
+    document.getElementById('cancelPassBtn').addEventListener('click', () => { passModal.style.display = 'none'; });
+    document.getElementById('savePassBtn').addEventListener('click', () => {
       const oldP = document.getElementById('oldPass').value;
       const newP = document.getElementById('newPass').value;
       const newP2 = document.getElementById('newPass2').value;
-
-      if (oldP !== getPassword()) {
-        passModalError.textContent = 'رمز فعلی اشتباه است';
-        return;
-      }
-      if (!newP || newP.length < 3) {
-        passModalError.textContent = 'رمز جدید حداقل ۳ کاراکتر باشد';
-        return;
-      }
-      if (newP !== newP2) {
-        passModalError.textContent = 'رمز جدید و تکرار آن یکسان نیست';
-        return;
-      }
-      setPassword(newP);
-      passModal.style.display = 'none';
-      setStatus('رمز عبور با موفقیت تغییر کرد ✓', 'success');
-      setTimeout(() => setStatus(''), 2500);
+      const err = document.getElementById('passModalError');
+      if (oldP !== getPassword()) { err.textContent = 'رمز فعلی اشتباه است'; return; }
+      if (!newP || newP.length < 3) { err.textContent = 'رمز جدید حداقل ۳ کاراکتر باشد'; return; }
+      if (newP !== newP2) { err.textContent = 'رمز جدید و تکرار آن یکسان نیست'; return; }
+      setPassword(newP); passModal.style.display = 'none';
+      setStatus('رمز عبور با موفقیت تغییر کرد ✓', 'success'); setTimeout(() => setStatus(''), 2500);
     });
 
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('./sw.js').catch(console.error);
+    }
     checkAuth();
   </script>
 </body>
