@@ -17,11 +17,7 @@
       --border: #e2e8f0;
     }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -31,26 +27,11 @@
       padding: 20px;
     }
 
-    .container {
-      max-width: 700px;
-      margin: 0 auto;
-    }
+    .container { max-width: 700px; margin: 0 auto; }
 
-    header {
-      text-align: center;
-      margin-bottom: 30px;
-    }
-
-    header h1 {
-      font-size: 1.8rem;
-      color: var(--primary);
-      margin-bottom: 8px;
-    }
-
-    header p {
-      color: var(--muted);
-      font-size: 0.95rem;
-    }
+    header { text-align: center; margin-bottom: 24px; }
+    header h1 { font-size: 1.8rem; color: var(--primary); margin-bottom: 6px; }
+    header p { color: var(--muted); font-size: 0.95rem; }
 
     .card {
       background: var(--card);
@@ -60,349 +41,159 @@
       margin-bottom: 20px;
     }
 
-    .input-section {
+    .tabs {
       display: flex;
-      flex-direction: column;
-      gap: 12px;
+      gap: 8px;
+      margin-bottom: 20px;
+      background: #eef2ff;
+      padding: 6px;
+      border-radius: 14px;
     }
+
+    .tab {
+      flex: 1;
+      padding: 12px 8px;
+      border: none;
+      border-radius: 10px;
+      background: transparent;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--muted);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .tab:hover { background: #e0e7ff; color: var(--primary); }
+    .tab.active {
+      background: white;
+      color: var(--primary);
+      box-shadow: 0 2px 8px rgba(79,70,229,0.15);
+    }
+
+    .tab .count {
+      display: inline-block;
+      background: #c7d2fe;
+      color: var(--primary);
+      font-size: 0.75rem;
+      padding: 2px 7px;
+      border-radius: 10px;
+      margin-right: 4px;
+    }
+
+    .tab.active .count {
+      background: var(--primary);
+      color: white;
+    }
+
+    .input-section { display: flex; flex-direction: column; gap: 12px; }
 
     .voice-btn {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      background: var(--primary);
-      color: white;
-      border: none;
-      border-radius: 12px;
-      padding: 16px 24px;
-      font-size: 1.1rem;
-      font-weight: 600;
-      cursor: pointer;
+      display: flex; align-items: center; justify-content: center; gap: 10px;
+      background: var(--primary); color: white; border: none; border-radius: 12px;
+      padding: 16px 24px; font-size: 1.1rem; font-weight: 600; cursor: pointer;
       transition: all 0.2s;
     }
+    .voice-btn:hover { background: var(--primary-dark); transform: translateY(-1px); }
+    .voice-btn.listening { background: var(--danger); animation: pulse 1.5s infinite; }
+    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.7; } }
+    .voice-btn svg { width: 24px; height: 24px; }
 
-    .voice-btn:hover {
-      background: var(--primary-dark);
-      transform: translateY(-1px);
-    }
-
-    .voice-btn.listening {
-      background: var(--danger);
-      animation: pulse 1.5s infinite;
-    }
-
-    @keyframes pulse {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.7; }
-    }
-
-    .voice-btn svg {
-      width: 24px;
-      height: 24px;
-    }
-
-    .manual-input {
-      display: flex;
-      gap: 10px;
-      margin-top: 8px;
-    }
-
+    .manual-input { display: flex; gap: 10px; margin-top: 8px; }
     .manual-input input[type="text"] {
-      flex: 1;
-      padding: 12px 16px;
-      border: 2px solid var(--border);
-      border-radius: 10px;
-      font-size: 1rem;
-      outline: none;
-      transition: border-color 0.2s;
+      flex: 1; padding: 12px 16px; border: 2px solid var(--border);
+      border-radius: 10px; font-size: 1rem; outline: none;
     }
-
-    .manual-input input[type="text"]:focus {
-      border-color: var(--primary);
-    }
-
+    .manual-input input[type="text"]:focus { border-color: var(--primary); }
     .manual-input button {
-      background: var(--success);
-      color: white;
-      border: none;
-      border-radius: 10px;
-      padding: 0 20px;
-      font-size: 1rem;
-      font-weight: 600;
-      cursor: pointer;
+      background: var(--success); color: white; border: none; border-radius: 10px;
+      padding: 0 20px; font-size: 1rem; font-weight: 600; cursor: pointer;
     }
 
-    .manual-input button:hover {
-      opacity: 0.9;
-    }
-
-    .due-date-row {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-top: 8px;
-    }
-
-    .due-date-row label {
-      font-size: 0.9rem;
-      color: var(--muted);
-      white-space: nowrap;
-    }
-
+    .due-date-row { display: flex; align-items: center; gap: 10px; margin-top: 8px; }
+    .due-date-row label { font-size: 0.9rem; color: var(--muted); white-space: nowrap; }
     .due-date-row input[type="date"] {
-      padding: 8px 12px;
-      border: 2px solid var(--border);
-      border-radius: 8px;
-      font-size: 0.95rem;
-      outline: none;
+      padding: 8px 12px; border: 2px solid var(--border); border-radius: 8px; font-size: 0.95rem; outline: none;
     }
 
-    .due-date-row input[type="date"]:focus {
-      border-color: var(--primary);
-    }
+    .status { text-align: center; font-size: 0.9rem; color: var(--muted); min-height: 24px; margin-top: 8px; }
+    .status.error { color: var(--danger); }
+    .status.success { color: var(--success); }
 
-    .status {
-      text-align: center;
-      font-size: 0.9rem;
-      color: var(--muted);
-      min-height: 24px;
-      margin-top: 8px;
-    }
-
-    .status.error {
-      color: var(--danger);
-    }
-
-    .status.success {
-      color: var(--success);
-    }
-
-    .tasks-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 16px;
-    }
-
-    .tasks-header h2 {
-      font-size: 1.2rem;
-      color: var(--text);
-    }
-
+    .tasks-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+    .tasks-header h2 { font-size: 1.2rem; color: var(--text); }
     .task-count {
-      background: var(--primary);
-      color: white;
-      font-size: 0.85rem;
-      padding: 4px 12px;
-      border-radius: 20px;
+      background: var(--primary); color: white; font-size: 0.85rem;
+      padding: 4px 12px; border-radius: 20px;
     }
 
-    .task-list {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
+    .task-list { list-style: none; display: flex; flex-direction: column; gap: 12px; }
 
     .task-item {
-      background: #f8fafc;
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 16px;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      transition: all 0.2s;
+      background: #f8fafc; border: 1px solid var(--border); border-radius: 12px;
+      padding: 16px; display: flex; flex-direction: column; gap: 10px; transition: all 0.2s;
     }
+    .task-item:hover { border-color: #c7d2fe; box-shadow: 0 2px 8px rgba(79,70,229,0.1); }
+    .task-item.done { opacity: 0.65; }
+    .task-item.done .task-text { text-decoration: line-through; color: var(--muted); }
 
-    .task-item:hover {
-      border-color: #c7d2fe;
-      box-shadow: 0 2px 8px rgba(79,70,229,0.1);
-    }
-
-    .task-item.done {
-      opacity: 0.65;
-    }
-
-    .task-item.done .task-text {
-      text-decoration: line-through;
-      color: var(--muted);
-    }
-
-    .task-top {
-      display: flex;
-      align-items: flex-start;
-      gap: 12px;
-    }
-
+    .task-top { display: flex; align-items: flex-start; gap: 12px; }
     .task-top input[type="checkbox"] {
-      width: 20px;
-      height: 20px;
-      margin-top: 2px;
-      accent-color: var(--success);
-      cursor: pointer;
+      width: 20px; height: 20px; margin-top: 2px; accent-color: var(--success); cursor: pointer;
     }
+    .task-text { flex: 1; font-size: 1.05rem; line-height: 1.5; word-break: break-word; }
 
-    .task-text {
-      flex: 1;
-      font-size: 1.05rem;
-      line-height: 1.5;
-      word-break: break-word;
-    }
-
-    .task-actions {
-      display: flex;
-      gap: 6px;
-    }
-
+    .task-actions { display: flex; gap: 6px; }
     .task-actions button {
-      background: none;
-      border: none;
-      cursor: pointer;
-      padding: 4px;
-      border-radius: 6px;
-      color: var(--muted);
-      transition: all 0.15s;
+      background: none; border: none; cursor: pointer; padding: 4px; border-radius: 6px;
+      color: var(--muted); transition: all 0.15s;
     }
-
-    .task-actions button:hover {
-      background: #e0e7ff;
-      color: var(--primary);
-    }
-
-    .task-actions button.delete-btn:hover {
-      background: #fee2e2;
-      color: var(--danger);
-    }
+    .task-actions button:hover { background: #e0e7ff; color: var(--primary); }
+    .task-actions button.delete-btn:hover { background: #fee2e2; color: var(--danger); }
 
     .task-meta {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      font-size: 0.85rem;
-      color: var(--muted);
-      padding-right: 32px;
+      display: flex; flex-wrap: wrap; gap: 12px; font-size: 0.85rem;
+      color: var(--muted); padding-right: 32px;
     }
+    .task-meta span { display: flex; align-items: center; gap: 4px; }
+    .due-date { color: var(--primary); font-weight: 500; }
+    .due-date.overdue { color: var(--danger); font-weight: 600; }
 
-    .task-meta span {
-      display: flex;
-      align-items: center;
-      gap: 4px;
-    }
-
-    .due-date {
-      color: var(--primary);
-      font-weight: 500;
-    }
-
-    .due-date.overdue {
-      color: var(--danger);
-      font-weight: 600;
-    }
-
-    .empty-state {
-      text-align: center;
-      padding: 40px 20px;
-      color: var(--muted);
-    }
-
-    .empty-state svg {
-      width: 64px;
-      height: 64px;
-      margin-bottom: 12px;
-      opacity: 0.4;
-    }
+    .empty-state { text-align: center; padding: 40px 20px; color: var(--muted); }
+    .empty-state svg { width: 64px; height: 64px; margin-bottom: 12px; opacity: 0.4; }
 
     .clear-btn {
-      background: none;
-      border: 1px solid var(--border);
-      color: var(--muted);
-      padding: 8px 16px;
-      border-radius: 8px;
-      font-size: 0.9rem;
-      cursor: pointer;
-      margin-top: 16px;
-      width: 100%;
+      background: none; border: 1px solid var(--border); color: var(--muted);
+      padding: 8px 16px; border-radius: 8px; font-size: 0.9rem; cursor: pointer;
+      margin-top: 16px; width: 100%;
     }
+    .clear-btn:hover { background: #fee2e2; border-color: #fecaca; color: var(--danger); }
 
-    .clear-btn:hover {
-      background: #fee2e2;
-      border-color: #fecaca;
-      color: var(--danger);
-    }
+    .loading { text-align: center; padding: 20px; color: var(--muted); }
 
-    .loading {
-      text-align: center;
-      padding: 20px;
-      color: var(--muted);
-    }
-
-    .edit-form {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      width: 100%;
-    }
-
+    .edit-form { display: flex; flex-direction: column; gap: 10px; width: 100%; }
     .edit-form input[type="text"] {
-      width: 100%;
-      padding: 10px 12px;
-      border: 2px solid var(--primary);
-      border-radius: 8px;
-      font-size: 1rem;
-      outline: none;
+      width: 100%; padding: 10px 12px; border: 2px solid var(--primary);
+      border-radius: 8px; font-size: 1rem; outline: none;
     }
-
-    .edit-form .edit-actions {
-      display: flex;
-      gap: 8px;
-      justify-content: flex-end;
-    }
-
+    .edit-form .edit-actions { display: flex; gap: 8px; justify-content: flex-end; }
     .edit-form .edit-actions button {
-      padding: 6px 14px;
-      border: none;
-      border-radius: 8px;
-      font-size: 0.9rem;
-      font-weight: 600;
-      cursor: pointer;
+      padding: 6px 14px; border: none; border-radius: 8px;
+      font-size: 0.9rem; font-weight: 600; cursor: pointer;
     }
-
-    .edit-form .save-btn {
-      background: var(--success);
-      color: white;
-    }
-
-    .edit-form .cancel-btn {
-      background: #e2e8f0;
-      color: var(--text);
-    }
-
+    .edit-form .save-btn { background: var(--success); color: white; }
+    .edit-form .cancel-btn { background: #e2e8f0; color: var(--text); }
     .edit-form .due-edit {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 0.9rem;
-      color: var(--muted);
+      display: flex; align-items: center; gap: 8px; font-size: 0.9rem; color: var(--muted);
     }
-
     .edit-form .due-edit input {
-      padding: 6px 10px;
-      border: 1px solid var(--border);
-      border-radius: 6px;
+      padding: 6px 10px; border: 1px solid var(--border); border-radius: 6px;
     }
 
     @media (max-width: 500px) {
-      body {
-        padding: 12px;
-      }
-      .card {
-        padding: 16px;
-      }
-      header h1 {
-        font-size: 1.5rem;
-      }
+      body { padding: 12px; }
+      .card { padding: 16px; }
+      header h1 { font-size: 1.5rem; }
+      .tab { font-size: 0.85rem; padding: 10px 4px; }
     }
   </style>
 </head>
@@ -410,8 +201,20 @@
   <div class="container">
     <header>
       <h1>📋 لیست کارهای روزانه</h1>
-      <p>کارهایت را با صدا بگو، لیست می‌شوند · همگام با فضای ابری</p>
+      <p>کارهایت را با صدا بگو · همگام با فضای ابری</p>
     </header>
+
+    <div class="tabs" id="tabs">
+      <button class="tab active" data-cat="personal">
+        شخصی <span class="count" id="count-personal">۰</span>
+      </button>
+      <button class="tab" data-cat="building">
+        ساختمان <span class="count" id="count-building">۰</span>
+      </button>
+      <button class="tab" data-cat="company">
+        شرکت <span class="count" id="count-company">۰</span>
+      </button>
+    </div>
 
     <div class="card">
       <div class="input-section">
@@ -441,7 +244,7 @@
 
     <div class="card">
       <div class="tasks-header">
-        <h2>کارهای من</h2>
+        <h2 id="sheetTitle">کارهای شخصی</h2>
         <span class="task-count" id="taskCount">۰ کار</span>
       </div>
 
@@ -454,11 +257,11 @@
           <rect x="9" y="3" width="6" height="4" rx="1"/>
           <path d="M9 12h6M9 16h6"/>
         </svg>
-        <p>هنوز کاری ثبت نشده</p>
+        <p>هنوز کاری در این بخش ثبت نشده</p>
         <p style="font-size:0.85rem;margin-top:4px">با صدا یا نوشتن کار جدید اضافه کن</p>
       </div>
 
-      <button class="clear-btn" id="clearBtn" style="display:none">پاک کردن کارهای انجام‌شده</button>
+      <button class="clear-btn" id="clearBtn" style="display:none">پاک کردن کارهای انجام‌شده این بخش</button>
     </div>
   </div>
 
@@ -480,7 +283,14 @@
     const db = firebase.firestore();
     const tasksRef = db.collection('tasks');
 
+    const CATEGORIES = {
+      personal: { id: 'personal', title: 'کارهای شخصی', label: 'شخصی' },
+      building: { id: 'building', title: 'کارهای ساختمان', label: 'ساختمان' },
+      company:  { id: 'company',  title: 'کارهای شرکت', label: 'شرکت' }
+    };
+
     let tasks = [];
+    let currentCategory = 'personal';
     let recognition = null;
     let isListening = false;
     let editingId = null;
@@ -496,12 +306,13 @@
     const emptyState = document.getElementById('emptyState');
     const clearBtn = document.getElementById('clearBtn');
     const loadingEl = document.getElementById('loading');
+    const sheetTitle = document.getElementById('sheetTitle');
+    const tabs = document.getElementById('tabs');
 
     const today = new Date().toISOString().split('T')[0];
     dueDateInput.value = today;
 
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-
     if (SpeechRecognition) {
       recognition = new SpeechRecognition();
       recognition.lang = 'fa-IR';
@@ -529,13 +340,9 @@
         isListening = false;
         voiceBtn.classList.remove('listening');
         voiceBtnText.textContent = 'ضبط صدا (بگو کارتو)';
-        if (event.error === 'no-speech') {
-          setStatus('صدایی شنیده نشد. دوباره امتحان کن.', 'error');
-        } else if (event.error === 'not-allowed') {
-          setStatus('دسترسی به میکروفون داده نشده. لطفاً اجازه بده.', 'error');
-        } else {
-          setStatus('خطا در تشخیص صدا: ' + event.error, 'error');
-        }
+        if (event.error === 'no-speech') setStatus('صدایی شنیده نشد. دوباره امتحان کن.', 'error');
+        else if (event.error === 'not-allowed') setStatus('دسترسی به میکروفون داده نشده.', 'error');
+        else setStatus('خطا در تشخیص صدا: ' + event.error, 'error');
       };
 
       recognition.onend = () => {
@@ -546,7 +353,6 @@
     } else {
       voiceBtn.disabled = true;
       voiceBtnText.textContent = 'مرورگر پشتیبانی نمی‌کند';
-      setStatus('مرورگر شما از تشخیص صدا پشتیبانی نمی‌کند. از Chrome یا Edge استفاده کنید.', 'error');
     }
 
     function setStatus(msg, type = '') {
@@ -568,31 +374,45 @@
 
     function isOverdue(dueDate) {
       if (!dueDate) return false;
-      const today = new Date();
-      today.setHours(0, 0, 0, 0);
-      const due = new Date(dueDate + 'T00:00:00');
-      return due < today;
+      const t = new Date(); t.setHours(0,0,0,0);
+      return new Date(dueDate + 'T00:00:00') < t;
     }
 
     function toPersianNum(n) {
-      const map = '۰۱۲۳۴۵۶۷۸۹';
-      return String(n).replace(/\d/g, d => map[d]);
+      return String(n).replace(/\d/g, d => '۰۱۲۳۴۵۶۷۸۹'[d]);
+    }
+
+    function getFilteredTasks() {
+      return tasks.filter(t => (t.category || 'personal') === currentCategory);
+    }
+
+    function updateTabCounts() {
+      ['personal', 'building', 'company'].forEach(cat => {
+        const count = tasks.filter(t => (t.category || 'personal') === cat && !t.done).length;
+        const el = document.getElementById('count-' + cat);
+        if (el) el.textContent = toPersianNum(count);
+      });
     }
 
     function renderTasks() {
       loadingEl.style.display = 'none';
       taskList.style.display = 'flex';
 
+      const filtered = getFilteredTasks();
       taskList.innerHTML = '';
-      const active = tasks.filter(t => !t.done).length;
-      const total = tasks.length;
+
+      const active = filtered.filter(t => !t.done).length;
+      const total = filtered.length;
 
       taskCount.textContent = total === 0 ? '۰ کار' : `${toPersianNum(active)} از ${toPersianNum(total)} باقی‌مانده`;
+      sheetTitle.textContent = CATEGORIES[currentCategory].title;
 
       emptyState.style.display = total === 0 ? 'block' : 'none';
-      clearBtn.style.display = tasks.some(t => t.done) ? 'block' : 'none';
+      clearBtn.style.display = filtered.some(t => t.done) ? 'block' : 'none';
 
-      const sorted = [...tasks].sort((a, b) => {
+      updateTabCounts();
+
+      const sorted = [...filtered].sort((a, b) => {
         if (a.done !== b.done) return a.done ? 1 : -1;
         if (a.dueDate && b.dueDate) return a.dueDate.localeCompare(b.dueDate);
         if (a.dueDate) return -1;
@@ -648,7 +468,6 @@
             </div>
           `;
         }
-
         taskList.appendChild(li);
       });
     }
@@ -661,20 +480,17 @@
 
     async function addTask() {
       const text = taskInput.value.trim();
-      if (!text) {
-        setStatus('متنی وارد نشده!', 'error');
-        return;
-      }
+      if (!text) { setStatus('متنی وارد نشده!', 'error'); return; }
 
       try {
         setStatus('در حال ذخیره...', '');
         await tasksRef.add({
-          text: text,
+          text,
           done: false,
+          category: currentCategory,
           createdAt: firebase.firestore.FieldValue.serverTimestamp(),
           dueDate: dueDateInput.value || today
         });
-
         taskInput.value = '';
         dueDateInput.value = today;
         setStatus('کار اضافه شد ✓', 'success');
@@ -688,11 +504,8 @@
     async function toggleTask(id) {
       const task = tasks.find(t => t.id === id);
       if (!task) return;
-      try {
-        await tasksRef.doc(id).update({ done: !task.done });
-      } catch (err) {
-        setStatus('خطا در به‌روزرسانی', 'error');
-      }
+      try { await tasksRef.doc(id).update({ done: !task.done }); }
+      catch (err) { setStatus('خطا در به‌روزرسانی', 'error'); }
     }
 
     async function deleteTask(id) {
@@ -700,9 +513,7 @@
         await tasksRef.doc(id).delete();
         setStatus('کار حذف شد', 'success');
         setTimeout(() => setStatus(''), 1500);
-      } catch (err) {
-        setStatus('خطا در حذف', 'error');
-      }
+      } catch (err) { setStatus('خطا در حذف', 'error'); }
     }
 
     async function saveEdit(id, li) {
@@ -710,64 +521,51 @@
       const dueInput = li.querySelector('.edit-due');
       const newText = textInput.value.trim();
       const newDue = dueInput.value || today;
-
-      if (!newText) {
-        setStatus('متن نمی‌تواند خالی باشد', 'error');
-        return;
-      }
+      if (!newText) { setStatus('متن نمی‌تواند خالی باشد', 'error'); return; }
 
       try {
-        await tasksRef.doc(id).update({
-          text: newText,
-          dueDate: newDue
-        });
+        await tasksRef.doc(id).update({ text: newText, dueDate: newDue });
         editingId = null;
         setStatus('ویرایش ذخیره شد ✓', 'success');
         setTimeout(() => setStatus(''), 1500);
-      } catch (err) {
-        setStatus('خطا در ذخیره ویرایش', 'error');
-      }
+      } catch (err) { setStatus('خطا در ذخیره ویرایش', 'error'); }
     }
 
     async function clearDone() {
       try {
         const batch = db.batch();
-        tasks.filter(t => t.done).forEach(t => {
-          batch.delete(tasksRef.doc(t.id));
-        });
+        getFilteredTasks().filter(t => t.done).forEach(t => batch.delete(tasksRef.doc(t.id)));
         await batch.commit();
-        setStatus('کارهای انجام‌شده پاک شدند', 'success');
+        setStatus('کارهای انجام‌شده این بخش پاک شدند', 'success');
         setTimeout(() => setStatus(''), 1500);
-      } catch (err) {
-        setStatus('خطا در پاک‌سازی', 'error');
-      }
+      } catch (err) { setStatus('خطا در پاک‌سازی', 'error'); }
     }
 
     tasksRef.orderBy('createdAt', 'desc').onSnapshot((snapshot) => {
-      tasks = snapshot.docs.map(doc => ({
-        id: doc.id,
-        ...doc.data()
-      }));
+      tasks = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
       renderTasks();
     }, (error) => {
       console.error(error);
-      loadingEl.textContent = 'خطا در اتصال به فضای ابری. قوانین امنیتی Firestore را چک کن.';
+      loadingEl.textContent = 'خطا در اتصال به فضای ابری';
       setStatus('خطا در بارگذاری داده‌ها', 'error');
     });
 
     voiceBtn.addEventListener('click', () => {
       if (!recognition) return;
-      if (isListening) {
-        recognition.stop();
-      } else {
-        recognition.start();
-      }
+      isListening ? recognition.stop() : recognition.start();
     });
 
     addBtn.addEventListener('click', addTask);
+    taskInput.addEventListener('keydown', e => { if (e.key === 'Enter') addTask(); });
 
-    taskInput.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter') addTask();
+    tabs.addEventListener('click', (e) => {
+      const btn = e.target.closest('.tab');
+      if (!btn) return;
+      currentCategory = btn.dataset.cat;
+      editingId = null;
+      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+      btn.classList.add('active');
+      renderTasks();
     });
 
     taskList.addEventListener('click', (e) => {
@@ -776,23 +574,18 @@
       const id = li.dataset.id;
       const action = e.target.closest('[data-action]')?.dataset.action;
 
-      if (action === 'toggle' || e.target.type === 'checkbox') {
-        toggleTask(id);
-      } else if (action === 'delete') {
-        deleteTask(id);
-      } else if (action === 'edit') {
+      if (action === 'toggle' || e.target.type === 'checkbox') toggleTask(id);
+      else if (action === 'delete') deleteTask(id);
+      else if (action === 'edit') {
         editingId = id;
         renderTasks();
         setTimeout(() => {
           const input = document.querySelector(`[data-id="${id}"] .edit-text`);
           if (input) input.focus();
         }, 50);
-      } else if (action === 'cancel-edit') {
-        editingId = null;
-        renderTasks();
-      } else if (action === 'save-edit') {
-        saveEdit(id, li);
       }
+      else if (action === 'cancel-edit') { editingId = null; renderTasks(); }
+      else if (action === 'save-edit') saveEdit(id, li);
     });
 
     taskList.addEventListener('keydown', (e) => {
@@ -800,10 +593,7 @@
         const li = e.target.closest('.task-item');
         if (li) saveEdit(li.dataset.id, li);
       }
-      if (e.key === 'Escape' && editingId) {
-        editingId = null;
-        renderTasks();
-      }
+      if (e.key === 'Escape' && editingId) { editingId = null; renderTasks(); }
     });
 
     clearBtn.addEventListener('click', clearDone);
