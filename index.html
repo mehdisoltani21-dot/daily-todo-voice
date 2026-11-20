@@ -387,9 +387,9 @@ catch(err){console.error(err);loadingEl.textContent='خطا در اتصال';set
 async function addTask(){
 const text=taskInput.value.trim();if(!text){setStatus('متنی وارد نشده!','error');return}
 try{setStatus('در حال ذخیره...','');const rowId='id_'+Date.now()+'_'+Math.random().toString(36).slice(2,9);
-const res=await fetch(BASE,{method:'POST',headers:headers(),body:JSON.stringify({rowId,data:{text,done:false,category:currentCategory,dueDate:dueDateInput.value||today,createdAt:new Date().toISOString(),archived:false}})});
+const res=await fetch(BASE,{method:'POST',headers:headers(),body:JSON.stringify({rowId,data:{text,done:false,category:currentCategory,dueDate:dueDateInput.value||today,createdAt:new Date().toISOString()}})});
 if(!res.ok)throw new Error(await res.text());taskInput.value='';dueDateInput.value=today;setStatus('کار اضافه شد ✓','success');setTimeout(()=>setStatus(''),2000);await loadTasks()}
-catch(err){console.error(err);setStatus('خطا در ذخیره','error')}}
+catch(err){console.error(err);const m=(err&&err.message)||'';setStatus(m.includes('Unknown attribute')?'خطا: فیلد نامعتبر در سرور':'خطا در ذخیره','error')}}
 async function toggleTask(id){
 const task=tasks.find(t=>(t.$id||t.id)===id);if(!task)return;
 try{await fetch(`${BASE}/${id}`,{method:'PATCH',headers:headers(),body:JSON.stringify({data:{done:!task.done}})});await loadTasks()}
@@ -420,7 +420,7 @@ document.getElementById('archiveList').addEventListener('click',async e=>{
 const btn=e.target.closest('[data-action=restore]');if(!btn)return;
 const arch=getArchive();const idx=+btn.dataset.idx;const task=arch[idx];if(!task)return;
 try{const rowId='id_'+Date.now()+'_'+Math.random().toString(36).slice(2,9);
-await fetch(BASE,{method:'POST',headers:headers(),body:JSON.stringify({rowId,data:{text:task.text,done:false,category:task.category||'personal',dueDate:task.dueDate||today,createdAt:new Date().toISOString(),archived:false}})});
+await fetch(BASE,{method:'POST',headers:headers(),body:JSON.stringify({rowId,data:{text:task.text,done:false,category:task.category||'personal',dueDate:task.dueDate||today,createdAt:new Date().toISOString()}})});
 arch.splice(idx,1);setArchive(arch);renderArchive();await loadTasks();setStatus('بازیابی شد ✓','success')}
 catch(err){setStatus('خطا در بازیابی','error')}});
 document.getElementById('clearArchiveBtn').addEventListener('click',()=>{if(confirm('آرشیو کامل پاک شود؟')){setArchive([]);renderArchive()}});
@@ -464,7 +464,7 @@ if(Array.isArray(data.archive))setArchive(data.archive);
 if(Array.isArray(data.tasks)){
 for(const t of data.tasks){
 const rowId='id_'+Date.now()+'_'+Math.random().toString(36).slice(2,9);
-await fetch(BASE,{method:'POST',headers:headers(),body:JSON.stringify({rowId,data:{text:t.text,done:!!t.done,category:t.category||'personal',dueDate:t.dueDate||today,createdAt:t.createdAt||new Date().toISOString(),archived:false}})})}}
+await fetch(BASE,{method:'POST',headers:headers(),body:JSON.stringify({rowId,data:{text:t.text,done:!!t.done,category:t.category||'personal',dueDate:t.dueDate||today,createdAt:t.createdAt||new Date().toISOString()}})})}}
 await loadTasks();setStatus('وارد شد ✓','success')}catch(err){setStatus('فایل نامعتبر','error')}
 e.target.value=''});
 document.getElementById('notifBtn').addEventListener('click',async()=>{
